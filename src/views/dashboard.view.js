@@ -1,19 +1,9 @@
 import React, { useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
+import LogoutButton from "../components/logout-button"
 
 function Dashboard() {
-  const {
-    user,
-    isAuthenticated,
-    logout,
-  } = useAuth0();
-
-  
-  const logoutWithRedirect = () =>
-  logout({
-    returnTo: window.location.origin,
-  });
-
+  const { user, isAuthenticated } = useAuth0();
   return (
     <div style={{ padding: 20 }}>
       <h2>Home View</h2>
@@ -29,7 +19,7 @@ function Dashboard() {
         </div>
       )}
       <p>Lorem ipsum dolor sit amet, consectetur adip.</p>
-      <button onClick={() => logoutWithRedirect()}>Log Out</button>
+      <LogoutButton />
     </div>
   );
 }

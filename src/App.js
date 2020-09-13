@@ -1,19 +1,22 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { Landing, Dashboard } from './views';
-import PrivateRoute from  './components/private-route'
-import history from "./utils/history";
-import './App.css';
+import React from "react";
+import { Route, Switch } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
 
-function App() {
+import { Loading, PrivateRoute } from "./components";
+import { Landing, Dashboard } from "./views";
+
+import "./App.css";
+
+const App = () => {
+
   return (
-    <Router history={history}>
-      <Routes>
-        <Route path="/" element={<Landing />} />
-        <PrivateRoute path="/dashboard" element={<Dashboard />} />
-      </Routes>
-    </Router>
+    <div id="app" className="d-flex flex-column h-100">
+      <Switch>
+        <Route path="/" exact component={Landing} />
+        <PrivateRoute path="/dashboard" component={Dashboard} />
+      </Switch>
+    </div>
   );
-}
+};
 
 export default App;
