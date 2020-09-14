@@ -11,7 +11,7 @@ const LogoutButton = () => {
         })
       }
       variant="danger"
-      className="btn-margin"
+      className="block text-left px-4 w-full py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white"
     >
       Log Out
     </button>

@@ -6,5 +6,7 @@ import LogoutButton from "./logout-button";
 import SideNav from "./sidenav";
 import Header from "./header";
 import DashboardContent from "./dashboard-content";
+import OutsideAlerter from "./outside-alerter";
 
-export { PrivateRoute, Loading, LoginButton, LogoutButton, Auth0ProviderWithHistory, SideNav, Header, DashboardContent };
+
+export { PrivateRoute, Loading, LoginButton, LogoutButton, Auth0ProviderWithHistory, SideNav, Header, DashboardContent, OutsideAlerter };

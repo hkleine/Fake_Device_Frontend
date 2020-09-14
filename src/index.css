@@ -12,3 +12,11 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.sidebar-background {
+  background: #565c9c;
+}
+
+.dashboard-content-background {
+  background: #55566c;
+}
