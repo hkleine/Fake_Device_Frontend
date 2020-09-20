@@ -35,3 +35,24 @@ code {
   --bg-opacity: 0.25;
   border-color: #2d3748;
 }
+
+.bg-primary {
+  background-color: #5D40B8;
+}
+
+.color-primary {
+  color: #5D40B8;
+}
+
+.react-toggle--checked .react-toggle-track {
+  background-color: #5D40B8;
+}
+
+.react-toggle--checked:hover:not(.react-toggle--disabled) .react-toggle-track {
+  background-color: #5D40B8;
+}
+
+.react-toggle--checked .react-toggle-thumb {
+  left: 27px;
+  border-color: #745eba;
+}

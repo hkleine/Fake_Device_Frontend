@@ -16,10 +16,6 @@ const App = () => {
         <PrivateRoute path="/alerts" exact component={AlertView} />
         <PrivateRoute path="/statistics" exact component={StatisticView} />
         <PrivateRoute path="/profile" exact component={ProfileView} />
-
-        {/* <PrivateRoute path="/alerts" component={} />
-        <PrivateRoute path="/add" component={} /> */}
-
       </Switch>
     </div>
   );

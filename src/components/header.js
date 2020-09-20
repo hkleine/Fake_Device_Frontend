@@ -5,6 +5,7 @@ import OutsideAlerter from "./outside-alerter";
 
 
 const Header = ({user}) => {
+  console.log(user);
     const menu = useRef();
     const [isOpen, setIsOpen] = React.useState(false);
     const toggleMenu = React.useCallback(() => setIsOpen(!isOpen))
@@ -30,17 +31,11 @@ const Header = ({user}) => {
     };
 
     return (
-        <header className="flex w-full h-24 justify-between items-center py-4 px-6 bg-gray-100 bg-opacity-75">
-
-        <div className="flex items-center">
-
-            <div className="relative w-12 h-12 rounded" ref={menu}>
-                <img className="h-full w-full object-cover" src={user.picture} alt="Your avatar" />
-            </div>
-            <span className="relative ml-8">
+        <header className="flex w-full justify-end items-center py-4 px-20 bg-gray-100 bg-opacity-75">
+            <img className="relative w-16 h-16 rounded-full" src={user.picture} alt="Your avatar" />
+            <span className="relative ml-6">
             {user.name}
         </span>
-        </div>
     </header>
     );
 }

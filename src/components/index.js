@@ -7,6 +7,8 @@ import SideNav from "./sidenav";
 import Header from "./header";
 import DashboardContent from "./dashboard-content";
 import OutsideAlerter from "./outside-alerter";
+import SensorGrid from "./SensorGrid";
+import SensorCard from "./SensorCard";
 
 
-export { PrivateRoute, Loading, LoginButton, LogoutButton, Auth0ProviderWithHistory, SideNav, Header, DashboardContent, OutsideAlerter };
+export { PrivateRoute, Loading, LoginButton, LogoutButton, Auth0ProviderWithHistory, SideNav, Header, DashboardContent, OutsideAlerter, SensorGrid, SensorCard };
