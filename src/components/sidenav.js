@@ -11,7 +11,7 @@ const SideNav = () => (
         to="/"
         exact
         className="text-lg mb-8 font-medium flex w-48 items-center py-2 px-6 bg-white text-gray-600 rounded-full"
-        activeStyle={{ color: '#5D40B8', background: '#F9FBFD'}}
+        activeStyle={{ color: '#5D40B8', background: '#f2f5f9'}}
       >
         <IconContext.Provider value={{ style: { fontSize: '25px' } }}>
           <div>
@@ -35,7 +35,7 @@ const SideNav = () => (
       <NavLink
         to="/statistics"
         className="text-lg mb-8 font-medium flex w-48 items-center py-2 px-6 bg-white text-gray-600 rounded-full"
-        activeStyle={{ color: '#5D40B8', background: '#F9FBFD'}}
+        activeStyle={{ color: '#5D40B8', background: '#f2f5f9'}}
       >
         <IconContext.Provider value={{ style: { fontSize: '25px' } }}>
           <div>
@@ -48,7 +48,7 @@ const SideNav = () => (
       <NavLink
         to="/profile"
         className="text-lg mb-8 font-medium flex w-48 items-center py-2 px-6 bg-white text-gray-600 rounded-full"
-        activeStyle={{ color: '#5D40B8', background: '#F9FBFD'}}
+        activeStyle={{ color: '#5D40B8', background: '#f2f5f9'}}
       >
         <IconContext.Provider value={{ style: { fontSize: '25px' } }}>
           <div>
