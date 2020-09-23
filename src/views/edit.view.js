@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { DashboardLayout } from '../layouts';
-import { AddDeviceStepperForm } from '../components/AddDeviceStepperForm';
-import ClimbingBoxLoader from "react-spinners/ClimbingBoxLoader";
 import axios from 'axios';
 import { useAuth0 } from '@auth0/auth0-react';
+import {Loading} from '../components';
+import { useForm } from "react-hook-form";
 
 function EditView({ match }) {
   let params = match.params;
   const { getAccessTokenSilently } = useAuth0();
   const [isLoading, setLoading] = useState(true);
   const [sensor, setSensor] = useState();
+  const { handleSubmit, register, errors } = useForm();
+  const onSubmit = data => console.log(data);
 
   useEffect(() => {
     const getDevice = async () => {  
@@ -35,21 +37,7 @@ function EditView({ match }) {
 
   if (isLoading) {
     return (
-      <div>
-        <DashboardLayout>
-          <div className="flex flex-col">
-            <div className="flex flex-row justify-between">
-              <h1 className="text-gray-700 text-2xl font-medium">Dashboard</h1>
-            </div>
-          </div>
-          <div className="flex items-center align-center justify-center pt-24">              
-            <ClimbingBoxLoader
-              color={"#5D40B8"}
-              loading={isLoading}
-            />
-          </div>
-        </DashboardLayout>
-      </div>
+      <Loading />
     );
   }
 
@@ -58,10 +46,27 @@ function EditView({ match }) {
       <DashboardLayout>
         <div className="flex flex-col">
           <div className="flex flex-row justify-between">
-            <h1 className="text-gray-700 text-2xl font-medium">New Device</h1>
+            <h1 className="text-gray-700 text-2xl font-medium pb-12">Edit {sensor.name}</h1>
           </div>
-          <span>{sensor._id}</span>
-          <div className="max-w-sm h-full w-full rounded-lg overflow-hidden shadow-sm bg-white p-4">
+          <div className="rounded-lg overflow-hidden shadow-sm bg-white p-4 max-w-screen-lg p-16">
+          <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
+            <div className="flex flex-col pb-12 max-w-lg">
+              <label className="text-gray-600">Name</label>
+              <input className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none" name="name" ref={register({ required: true })} />
+              {errors.name?.type === 'required' && <span> This field is required</span>}
+            </div>
+
+            <div className="flex flex-col pb-12 max-w-lg">
+              <label className="text-gray-600">Protocol</label>
+              <select className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none" name="protocol" ref={register({ required: true })}>
+                <option value="http">HTTP</option>
+                <option value="mqtt">MQTT</option>
+              </select>
+              {errors.protocol?.type === 'required' && <span> This field is required</span>}
+            </div>
+
+            <button type="submit">submit</button>
+          </form>
           </div>
         </div>
       </DashboardLayout>

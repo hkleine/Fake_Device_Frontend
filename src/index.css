@@ -56,3 +56,8 @@ code {
   left: 27px;
   border-color: #745eba;
 }
+
+.edit-card {
+  width: 1000px;
+  height: 500px;
+}

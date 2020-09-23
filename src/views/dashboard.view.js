@@ -50,7 +50,7 @@ function Dashboard() {
       <DashboardLayout>
         <div className="flex flex-col">
           <div className="flex flex-row justify-between">
-            <h1 className="text-gray-700 text-2xl font-medium">Dashboard</h1>
+            <h1 className="text-gray-700 text-2xl font-medium pb-12">Dashboard</h1>
           </div>
           <SensorGrid sensors={sensors} updateSensors={updateSensors} />
         </div>
