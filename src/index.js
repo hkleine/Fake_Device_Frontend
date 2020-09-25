@@ -1,9 +1,9 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import App from "./App";
-import { BrowserRouter as Router } from "react-router-dom";
-import Auth0ProviderWithHistory from "./components/auth0-provider-with-history";
-import "./index.css";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { Auth0ProviderWithHistory } from './components';
+import './index.css';
 import './tailwind.output.css';
 
 ReactDOM.render(
@@ -12,5 +12,5 @@ ReactDOM.render(
       <App />
     </Auth0ProviderWithHistory>
   </Router>,
-  document.getElementById("root")
+  document.getElementById('root')
 );

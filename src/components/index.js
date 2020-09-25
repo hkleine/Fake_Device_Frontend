@@ -1,12 +1,11 @@
 import PrivateRoute from './PrivateRoute';
 import Loading from './Loading';
-import Auth0ProviderWithHistory from './auth0-provider-with-history';
-import LoginButton from './login-button';
-import LogoutButton from './logout-button';
-import SideNav from './sidenav';
-import Header from './header';
-import DashboardContent from './dashboard-content';
-import OutsideAlerter from './outside-alerter';
+import Auth0ProviderWithHistory from './Auth0ProviderWithHistory';
+import LoginButton from './LoginButton';
+import LogoutButton from './LogoutButton';
+import SideNav from './Sidenav';
+import Header from './Header';
+import DashboardContent from './DashboardContent';
 import SensorGrid from './SensorGrid';
 import SensorCard from './SensorCard';
 import Searchbar from './Searchbar';
@@ -21,7 +20,6 @@ export {
   SideNav,
   Header,
   DashboardContent,
-  OutsideAlerter,
   SensorGrid,
   SensorCard,
   Searchbar,

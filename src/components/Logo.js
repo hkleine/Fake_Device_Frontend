@@ -3,8 +3,8 @@ import React from 'react';
 const Logo = () => {
   return (
     <div className="flex flex-row flex items-end px-10 py-8">
-        <img src="/logo4.png" alt="image" />
-        <span className="text-gray-700 text-4xl tracking-tighter font-bold pl-2">mockd</span>
+      <img src="/logo4.png" alt="image" />
+      <span className="text-gray-700 text-4xl tracking-tighter font-bold pl-2 leading-none">mockd</span>
     </div>
   );
 };

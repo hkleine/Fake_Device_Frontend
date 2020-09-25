@@ -2,8 +2,8 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { HiOutlineViewGrid, HiOutlineBell, HiOutlineChartBar, HiOutlineUser } from 'react-icons/hi';
 import { IconContext } from 'react-icons';
-import LogoutButton from './logout-button';
-import Logo from './Logo'
+import LogoutButton from './LogoutButton';
+import Logo from './Logo';
 
 const SideNav = () => (
   <div className="fixed z-30 inset-y-0 left-0 h-screen transition duration-300 transform bg-white lg:translate-x-0 lg:static lg:inset-0">
@@ -13,7 +13,7 @@ const SideNav = () => (
         to="/"
         exact
         className="text-lg mb-8 font-medium flex w-48 items-center py-2 px-6 bg-white text-gray-600 rounded-full"
-        activeStyle={{ color: '#5D40B8', background: '#f2f5f9'}}
+        activeStyle={{ color: '#5D40B8', background: '#f2f5f9' }}
       >
         <IconContext.Provider value={{ style: { fontSize: '25px' } }}>
           <div>
@@ -25,7 +25,7 @@ const SideNav = () => (
       <NavLink
         to="/alerts"
         className="text-lg mb-8 font-medium flex w-48 items-center py-2 px-6 bg-white text-gray-600 rounded-full"
-        activeStyle={{ color: '#5D40B8', background: '#F9FBFD'}}
+        activeStyle={{ color: '#5D40B8', background: '#F9FBFD' }}
       >
         <IconContext.Provider value={{ style: { fontSize: '25px' } }}>
           <div>
@@ -37,7 +37,7 @@ const SideNav = () => (
       <NavLink
         to="/statistics"
         className="text-lg mb-8 font-medium flex w-48 items-center py-2 px-6 bg-white text-gray-600 rounded-full"
-        activeStyle={{ color: '#5D40B8', background: '#f2f5f9'}}
+        activeStyle={{ color: '#5D40B8', background: '#f2f5f9' }}
       >
         <IconContext.Provider value={{ style: { fontSize: '25px' } }}>
           <div>
@@ -50,7 +50,7 @@ const SideNav = () => (
       <NavLink
         to="/profile"
         className="text-lg mb-8 font-medium flex w-48 items-center py-2 px-6 bg-white text-gray-600 rounded-full"
-        activeStyle={{ color: '#5D40B8', background: '#f2f5f9'}}
+        activeStyle={{ color: '#5D40B8', background: '#f2f5f9' }}
       >
         <IconContext.Provider value={{ style: { fontSize: '25px' } }}>
           <div>
