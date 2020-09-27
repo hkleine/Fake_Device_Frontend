@@ -35,7 +35,6 @@ function SensorCard({sensorIn, updateSensors}) {
     }
 
     function parseInterval(interval) {
-        console.log(interval);
         const intervalInSec = moment.duration(interval).asSeconds();
 
             if(intervalInSec < 60) return `${intervalInSec}s`;
