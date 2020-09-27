@@ -13,6 +13,7 @@ function SensorCard({sensorIn, updateSensors}) {
     const { getAccessTokenSilently } = useAuth0();
     const [sensor, setSensor] = useState(sensorIn);
     const editUrl = `/edit/${sensorIn._id}`;
+    console.log(sensor);
 
     async function toggleSensor() {
         const accessToken = await getAccessTokenSilently({
@@ -87,7 +88,7 @@ function SensorCard({sensorIn, updateSensors}) {
                     <Toggle
                         className="toggle"
                         onChange={toggleSensor}
-                        defaultChecked={sensor.isRunning}
+                        defaultChecked={sensor.is_running}
                         icons={false} />
                 </label>
                 <div className="flex flex-row items-center pb-2 pl-4">
