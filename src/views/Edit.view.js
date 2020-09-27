@@ -5,8 +5,8 @@ import { useAuth0 } from '@auth0/auth0-react';
 import {Loading} from '../components';
 import { useForm } from "react-hook-form";
 import moment from 'moment';
-import JSONInput from 'react-json-editor-ajrm';
-import locale from 'react-json-editor-ajrm/locale/en';
+import 'jsoneditor-react/es/editor.min.css';
+import ReactJson from 'react-json-view';
 
 function EditView({ match }) {
   let params = match.params;
@@ -14,7 +14,10 @@ function EditView({ match }) {
   const [isLoading, setLoading] = useState(true);
   const [sensor, setSensor] = useState();
   const { handleSubmit, register, errors, setValue } = useForm();
-  const onSubmit = data => console.log(data);
+  const onSubmit = data => {
+
+    console.log(data);
+  };
 
   function intervalAsSeconds(interval) {
     return moment.duration(interval).asSeconds();
@@ -42,7 +45,7 @@ function EditView({ match }) {
               </div>
               <div className="flex flex-col w-1/2">
                 <label className="text-gray-600">MQTT Password</label>
-                <input className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none" defaultValue={sensor.mqtt_password} type="text" name="mqtt_password" ref={register()} />
+                <input className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none" defaultValue={sensor.mqtt_password} type="password" name="mqtt_password" ref={register()} />
               </div>
             </div>
           </div>
@@ -55,6 +58,8 @@ function EditView({ match }) {
   }
 
   useEffect(() => {
+    register({ name: "data"});
+
     const getDevice = async () => {  
       try {
         const accessToken = await getAccessTokenSilently({
@@ -67,7 +72,7 @@ function EditView({ match }) {
           },
         });
         setSensor(response.data);
-        console.log(response.data);
+        setValue('data', response.data.data)
         setLoading(false);
       } catch (e) {
         console.log(e.message);
@@ -75,7 +80,7 @@ function EditView({ match }) {
     };
     
     getDevice();
-  }, []);
+  }, [register]);
 
   if (isLoading) {
     return (
@@ -136,16 +141,8 @@ function EditView({ match }) {
             <div className="flex flex-col pb-12 w-full">
               <label className="text-gray-600">JSON Data</label>
               <div className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none">
-                <JSONInput 
-                  placeholder={sensor.data}
-                  id          = 'a_unique_id'
-                  theme='light_mitsuketa_tribute'
-                  locale      = { locale }
-                  height      = '350px'
-                  colors={{
-                    string: "#DAA520" // overrides theme colors with whatever color value you want
-                  }}
-                />
+              <ReactJson src={sensor.data} onEdit={(e) => setValue('data', e.updated_src)} />
+              
               </div>
             </div>
 

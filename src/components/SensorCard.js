@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { NavLink } from 'react-router-dom';
 
-import { HiOutlineCode, HiOutlineTrash } from 'react-icons/hi';
+import { HiOutlineCode, HiOutlineTrash, HiOutlineClock } from 'react-icons/hi';
 import { IconContext } from 'react-icons';
 import axios from 'axios';
 import Toggle from 'react-toggle';
 import "react-toggle/style.css";
 import { useAuth0 } from "@auth0/auth0-react";
-
+import moment from 'moment';
 
 function SensorCard({sensorIn, updateSensors}) {
     const { getAccessTokenSilently } = useAuth0();
@@ -34,6 +34,17 @@ function SensorCard({sensorIn, updateSensors}) {
         });
     }
 
+    function parseInterval(interval) {
+        console.log(interval);
+        const intervalInSec = moment.duration(interval).asSeconds();
+
+            if(intervalInSec < 60) return `${intervalInSec}s`;
+            else if(intervalInSec < 3600) return `${moment.duration(interval).asMinutes()}m`;
+            else return  `${moment.duration(interval).asHours()}h`;
+        
+    }
+    
+
   return (
     <div className="max-w-sm rounded-lg overflow-hidden shadow-sm bg-white p-4">
         <div className="flex flex-col">
@@ -57,39 +68,38 @@ function SensorCard({sensorIn, updateSensors}) {
                 </div>
             </div>
             {sensor.protocol === 'http' &&
-                <div>
-                    <div className="flex flex-row justify-between py-4">
-                        <span className="text-gray-600 text-sm">{sensor.http_host}:{sensor.http_port}{sensor.http_route}</span>
-                        <div className="flex justify-center items-center py-2 px-4 rounded-full text-white bg-primary shadow-md">
-                            <div className="text-xs font-normal leading-none max-w-full flex-initial">{sensor.protocol}</div>
-                        </div>
+                <div className="flex flex-row justify-between py-4">
+                    <span className="text-gray-600 text-sm">{sensor.http_host}:{sensor.http_port}{sensor.http_route}</span>
+                    <div className="flex justify-center items-center py-2 px-4 rounded-full text-white bg-primary shadow-md">
+                        <div className="text-xs font-normal leading-none max-w-full flex-initial">{sensor.protocol}</div>
                     </div>
-                    <label>
-                        <Toggle
-                            className="toggle"
-                            onChange={toggleSensor}
-                            defaultChecked={sensor.isRunning}
-                            icons={false} />
-                    </label>
                 </div>
             }
             {sensor.protocol === 'mqtt' &&
-                <div>
-                    <div className="flex flex-row justify-between py-4">
-                        <span className="text-gray-600 text-sm">{sensor.mqtt_topic}</span>
-                        <div className="flex justify-center items-center py-2 px-4 rounded-full text-white bg-indigo-500 shadow-md">
-                            <div className="text-xs font-normal leading-none max-w-full flex-initial">{sensor.protocol}</div>
-                        </div>
+                <div className="flex flex-row justify-between py-4">
+                    <span className="text-gray-600 text-sm">{sensor.mqtt_topic}</span>
+                    <div className="flex justify-center items-center py-2 px-4 rounded-full text-white bg-indigo-500 shadow-md">
+                        <div className="text-xs font-normal leading-none max-w-full flex-initial">{sensor.protocol}</div>
                     </div>
-                    <label>
-                        <Toggle
-                            checked={sensor.is_running}
-                            onChange={toggleSensor}
-                            className="toggle"
-                            icons={false} />
-                    </label>
                 </div>
             }
+            <div className="flex flex-row items-center">
+                <label>
+                    <Toggle
+                        className="toggle"
+                        onChange={toggleSensor}
+                        defaultChecked={sensor.isRunning}
+                        icons={false} />
+                </label>
+                <div className="flex flex-row items-center pb-2 pl-4">
+                    <IconContext.Provider value={{ style: { fontSize: '15px' } }}>
+                        <div className="text-gray-600">
+                            <HiOutlineClock />
+                        </div>
+                    </IconContext.Provider>
+                    <span className="text-gray-600 text-sm">{parseInterval(sensor.interval)}</span>
+                </div>
+            </div>
         </div>
     </div>
   );
