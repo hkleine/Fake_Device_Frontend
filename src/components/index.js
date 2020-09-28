@@ -10,6 +10,8 @@ import SensorGrid from './SensorGrid';
 import SensorCard from './SensorCard';
 import Searchbar from './Searchbar';
 import AddDeviceButton from './AddDeviceButton';
+import ProtocolInputs from './ProtocolInputs';
+import DeleteDialog from './DeleteDialog';
 
 export {
   PrivateRoute,
@@ -24,4 +26,6 @@ export {
   SensorCard,
   Searchbar,
   AddDeviceButton,
+  ProtocolInputs,
+  DeleteDialog
 };

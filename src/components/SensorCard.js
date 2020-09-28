@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { NavLink } from 'react-router-dom';
 
+import {DeleteDialog} from '../components';
 import { HiOutlineCode, HiOutlineTrash, HiOutlineClock } from 'react-icons/hi';
 import { IconContext } from 'react-icons';
 import axios from 'axios';
@@ -9,11 +10,12 @@ import "react-toggle/style.css";
 import { useAuth0 } from "@auth0/auth0-react";
 import moment from 'moment';
 
+
 function SensorCard({sensorIn, updateSensors}) {
     const { getAccessTokenSilently } = useAuth0();
     const [sensor, setSensor] = useState(sensorIn);
+    const [open, setOpen] = useState(false);
     const editUrl = `/edit/${sensorIn._id}`;
-    console.log(sensor);
 
     async function toggleSensor() {
         const accessToken = await getAccessTokenSilently({
@@ -37,16 +39,16 @@ function SensorCard({sensorIn, updateSensors}) {
 
     function parseInterval(interval) {
         const intervalInSec = moment.duration(interval).asSeconds();
-
-            if(intervalInSec < 60) return `${intervalInSec}s`;
-            else if(intervalInSec < 3600) return `${moment.duration(interval).asMinutes()}m`;
-            else return  `${moment.duration(interval).asHours()}h`;
-        
+        if(intervalInSec < 60) return `${intervalInSec}s`;
+        else if(intervalInSec < 3600) return `${moment.duration(interval).asMinutes()}m`;
+        else return  `${moment.duration(interval).asHours()}h`;   
     }
     
 
   return (
     <div className="max-w-sm rounded-lg overflow-hidden shadow-sm bg-white p-4">
+        <DeleteDialog open={open} setOpen={setOpen} deleteSensor={deleteSensor} />
+
         <div className="flex flex-col">
             <div className="flex flex-row justify-between">
                 <h3 className="text-gray-700 text-lg">{sensor.name}</h3>
@@ -58,7 +60,7 @@ function SensorCard({sensorIn, updateSensors}) {
                             </div>
                         </IconContext.Provider>
                     </NavLink>
-                    <button className="outline-none pb-2" onClick={deleteSensor}>
+                    <button className="outline-none pb-2" onClick={() => setOpen(true)}>
                         <IconContext.Provider value={{ style: { fontSize: '20px' } }}>
                             <div className="text-gray-600 hover:text-purple-700">
                                 <HiOutlineTrash />

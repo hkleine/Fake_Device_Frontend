@@ -61,3 +61,12 @@ code {
   width: 1000px;
   height: 500px;
 }
+
+.custom-ui {
+  text-align: center;
+  width: 500px;
+  padding: 40px;
+  background: #fff;
+  box-shadow: 0 20px 75px rgba(0, 0, 0, 0.23);
+  color: #2d3748;
+}
