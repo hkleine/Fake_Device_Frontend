@@ -71,7 +71,7 @@ function SensorCard({sensorIn, updateSensors}) {
             </div>
             {sensor.protocol === 'http' &&
                 <div className="flex flex-row justify-between py-4">
-                    <span className="text-gray-600 text-sm">{sensor.http_host}:{sensor.http_port}{sensor.http_route}</span>
+                    <span className="text-gray-600 text-sm">{sensor.http_host}</span>
                     <div className="flex justify-center items-center py-2 px-4 rounded-full text-white bg-primary shadow-md">
                         <div className="text-xs font-normal leading-none max-w-full flex-initial">{sensor.protocol}</div>
                     </div>
