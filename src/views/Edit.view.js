@@ -9,7 +9,7 @@ import 'jsoneditor-react/es/editor.min.css';
 import JSONInput from 'react-json-editor-ajrm';
 import locale    from 'react-json-editor-ajrm/locale/en';
 import { NavLink } from 'react-router-dom';
-import io from 'socket.io-client';
+import socketIOClient from "socket.io-client";
 
 function EditView({ match }) {
   let params = match.params;
@@ -77,7 +77,7 @@ function EditView({ match }) {
   useEffect(() => {
     register({ name: "data"});
     getDevice();
-    const socket = io("https://mockd-backend.herokuapp.com");
+    const socket = socketIOClient("https://mockd-backend.herokuapp.com");
     socket.on("FromAPI", data => {
       console.log("moin");
     });
