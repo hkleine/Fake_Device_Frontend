@@ -9,7 +9,6 @@ import 'jsoneditor-react/es/editor.min.css';
 import JSONInput from 'react-json-editor-ajrm';
 import locale from 'react-json-editor-ajrm/locale/en';
 import { NavLink } from 'react-router-dom';
-import * as WebSocket from 'ws';
 
 function EditView({ match }) {
   let params = match.params;
