@@ -78,7 +78,7 @@ function EditView({ match }) {
   useEffect(() => {
     register({ name: 'data' });
     getDevice();
-    const client = new WebSocket(`wss://mockd-backend.herokuapp.com/device/${sensor._id}`);
+    const client = new WebSocket(`wss://mockd-backend.herokuapp.com/device/moin`);
     client.onopen = () => {
       console.log('connected websocket main component');
       client.onmessage = event => {
