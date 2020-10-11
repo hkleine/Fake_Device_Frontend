@@ -15,6 +15,7 @@ function EditView({ match }) {
   const { getAccessTokenSilently } = useAuth0();
   const [isLoading, setLoading] = useState(true);
   const [sensor, setSensor] = useState();
+  const [logs, setLogs] = useState();
   const [openSuccess, setOpenSuccess] = React.useState(false);
   const [openError, setOpenError] = React.useState(false);
   const { handleSubmit, register, errors, setValue } = useForm();
@@ -72,17 +73,38 @@ function EditView({ match }) {
     }
   };
 
+  const getLogs = async () => {
+    try {
+      const accessToken = await getAccessTokenSilently({
+        audience: process.env.REACT_APP_AUTH0_AUDIENCE,
+      });
+
+      const response = await axios({
+        method: 'get',
+        url: `${process.env.REACT_APP_API}/api/device/${params.id}/logs`,
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      setLogs(response.data);
+      console.log(response.data);
+      return;
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
+
   const intervalAsSeconds = interval => {
     return moment.duration(interval).asSeconds();
   };
 
   useEffect(() => {
     register({ name: 'data' });
+    getLogs();
     getDevice();
     const client = new WebSocket(`wss://mockd-backend.herokuapp.com/devices/${params.id}/logs`);
     client.onopen = () => {
       client.onmessage = event => {
-        console.log(typeof JSON.parse(event.data));
         console.log(JSON.parse(event.data).fullDocument);
       };
     };
@@ -99,6 +121,7 @@ function EditView({ match }) {
           <div className="flex flex-row justify-between">
             <h1 className="text-gray-700 text-2xl font-medium pb-12">Edit {sensor.name}</h1>
           </div>
+          <div className="flex flex-row justify-bewteen">
           <div className="rounded-lg overflow-hidden shadow-sm bg-white p-4 max-w-screen-md p-16">
             <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
               <div className="flex flex-col pb-12 max-w-lg">
@@ -185,6 +208,13 @@ function EditView({ match }) {
                 </button>
               </div>
             </form>
+          </div>
+
+          <div className="rounded-lg shadow-sm bg-gray-400 p-4 max-w-screen-md p-16 flex flex-col">
+            {logs.map((log, index) => {
+              return <span key={index}>{log.time_stamp} [{log.severity}] {log.text}</span>
+            })}
+          </div>
           </div>
         </div>
         <SnackbarComponent open={openSuccess} setOpen={setOpenSuccess} severity={'success'}>
