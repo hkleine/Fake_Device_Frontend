@@ -112,7 +112,6 @@ function EditView({ match }) {
 
     // Creates a WebSocket connection
     socketRef.current = socketIOClient(SOCKET_SERVER_URL, {
-      query: { deviceId: params.id },
       transport : ['websocket', 'polling']
     });
 
