@@ -112,7 +112,8 @@ function EditView({ match }) {
 
     // Creates a WebSocket connection
     socketRef.current = io(SOCKET_SERVER_URL, {
-      transport : ['websocket', 'polling']
+      transport : ['websocket', 'polling'],
+      withCredentials: true,
     });
 
     // Listens for incoming messages
