@@ -10,7 +10,7 @@ import JSONInput from 'react-json-editor-ajrm';
 import locale from 'react-json-editor-ajrm/locale/en';
 import { NavLink } from 'react-router-dom';
 import { useBeforeunload } from 'react-beforeunload';
-import socketIOClient from "socket.io-client";
+import io from "socket.io-client";
 
 function EditView({ match }) {
   let params = match.params;
@@ -111,7 +111,7 @@ function EditView({ match }) {
     })
 
     // Creates a WebSocket connection
-    socketRef.current = socketIOClient(SOCKET_SERVER_URL, {
+    socketRef.current = io(SOCKET_SERVER_URL, {
       transport : ['websocket', 'polling']
     });
 
