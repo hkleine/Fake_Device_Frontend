@@ -30,7 +30,7 @@ function EditView({ match }) {
   };
 
   const NEW_CHAT_MESSAGE_EVENT = "newData"; // Name of the event
-  const SOCKET_SERVER_URL = "ws://mockd-backend.herokuapp.com";
+  const SOCKET_SERVER_URL = "wss://mockd-backend.herokuapp.com";
 
   const updateDevice = async newSensor => {
     newSensor.interval = `PT${newSensor.interval}S`;
