@@ -111,7 +111,7 @@ function EditView({ match }) {
     })
 
     // Creates a WebSocket connection
-    socketRef.current = socketIOClient(SOCKET_SERVER_URL);
+    socketRef.current = socketIOClient(SOCKET_SERVER_URL, { withCredentials: true });
     
     // Listens for incoming messages
     socketRef.current.on(NEW_CHAT_MESSAGE_EVENT, (message) => {
