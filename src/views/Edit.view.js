@@ -110,10 +110,12 @@ function EditView({ match }) {
     Promise.all([getLogs(), getDevice()]).then(() => {
       setLoading(false);
     })
+  }, [register]);
 
+  useEffect(() => {
     // Creates a WebSocket connection
     socketRef.current = io(SOCKET_SERVER_URL, { withCredentials: true, transports: ['websocket', 'polling'], query: {"deviceId": params.id } });
-    
+
     // Listens for incoming messages
     socketRef.current.on(NEW_CHAT_MESSAGE_EVENT, (message) => {
       console.log(message);
@@ -124,7 +126,10 @@ function EditView({ match }) {
     return () => {
       socketRef.current.disconnect();
     };
-  }, [register]);
+  }, []);
+
+
+
 
   useBeforeunload((event) => {
     console.log("unloading");
