@@ -1,6 +1,5 @@
 import React from 'react';
 import { DashboardLayout } from '../layouts';
-import { AddDeviceStepperForm } from '../components/AddDeviceStepperForm';
 import StepForm from '../components/StepForm/StepForm'
 
 function AddView() {

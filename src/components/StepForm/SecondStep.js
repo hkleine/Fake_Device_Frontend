@@ -1,18 +1,17 @@
 import React from "react"
 import Grid from "@material-ui/core/Grid"
-import TextField from "@material-ui/core/TextField"
-import Button from "@material-ui/core/Button"
+import {TextField, Button, Select, MenuItem, FormControl, InputLabel} from "@material-ui/core"
 
 // Destructuring props
 const SecondStep = ({ handleNext, handleBack, handleChange, values: { protocol, mqtt_host, mqtt_password, mqtt_topic, mqtt_username, http_host, http_port, http_method, http_auth_token }, formErrors }) => {
   // Check if all values are not empty or if there are some error
-  const isValid = (mqtt_host.length > 0 && mqtt_username.length > 0 && mqtt_topic.length > 0) || (http_host.length > 0 && http_port.length > 0 && http_method.length > 0 && http_auth_token.length > 0);
+  const isValid = (mqtt_host.length > 0 && mqtt_username.length > 0 && mqtt_topic.length > 0) || (http_host.length > 0 && http_port.length > 0 && http_method.length > 0);
 
   function NextButton() {
     if (isValid) {
-      return <button className="bg-primary hover:bg-purple-700 text-white font-bold py-2 px-10 rounded shadow" disabled={!isValid} onClick={isValid ? handleNext : null} type="submit">Next</button>;
+      return <button className="bg-primary hover:bg-purple-700 text-white font-bold py-2 px-10 rounded shadow" disabled={!isValid} onClick={isValid ? handleNext : null} type="submit">next</button>;
     }
-    return <button className="bg-gray-500 hover:bg-gray-500 text-white font-bold py-2 px-10 rounded shadow" disabled type="submit">Next</button>;
+    return <button className="bg-gray-500 hover:bg-gray-500 text-white font-bold py-2 px-10 rounded shadow" disabled type="submit">next</button>;
   }
 
   return (
@@ -103,15 +102,22 @@ const SecondStep = ({ handleNext, handleBack, handleChange, values: { protocol, 
               />
             </Grid>
             <Grid item xs={12}>
-            <TextField
+            <FormControl fullWidth margin="normal">
+              <InputLabel id="demo-simple-select-label">HTTP Method *</InputLabel>
+              <Select
                 fullWidth
                 label="HTTP Method"
                 name="http_method"
-                value={http_method || ""}
+                value={http_method}
                 onChange={handleChange}
                 margin="normal"
                 required
-              />
+              >
+                <MenuItem value={"POST"}>POST</MenuItem>
+                <MenuItem value={"PUT"}>PUT</MenuItem>
+                <MenuItem value={"PATCH"}>PATCH</MenuItem>
+              </Select>
+            </FormControl>
             </Grid>
             <Grid item xs={12}>
               <TextField

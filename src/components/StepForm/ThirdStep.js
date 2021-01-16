@@ -3,7 +3,7 @@ import Grid from "@material-ui/core/Grid"
 import FormControl from "@material-ui/core/FormControl"
 import InputLabel from "@material-ui/core/InputLabel"
 import Button from "@material-ui/core/Button"
-import { FormControlLabel, Radio, RadioGroup, TextField } from "@material-ui/core"
+import { TextField } from "@material-ui/core"
 
 // Destructuring props
 const ThirdStep = ({ handleNext, handleBack, handleChange, values }) => {
@@ -16,6 +16,13 @@ const ThirdStep = ({ handleNext, handleBack, handleChange, values }) => {
     console.log(values)
     // Show last compinent or success message
     handleNext()
+  }
+
+  function SubmitButton() {
+    if (isValid) {
+      return <button className="bg-primary hover:bg-purple-700 text-white font-bold py-2 px-10 rounded shadow" disabled={!isValid} onClick={isValid ? handleSubmit : null} type="submit">submit</button>;
+    }
+    return <button className="bg-gray-500 hover:bg-gray-500 text-white font-bold py-2 px-10 rounded shadow" disabled type="submit">submit</button>;
   }
 
   return (
@@ -37,9 +44,7 @@ const ThirdStep = ({ handleNext, handleBack, handleChange, values }) => {
       <Button variant="contained" color="default" onClick={handleBack} style={{ marginRight: 10 }}>
         Back
       </Button>
-      <button className="bg-primary hover:bg-purple-700 text-white font-bold py-2 px-10 rounded shadow" onClick={handleSubmit} type="submit">
-        submit
-      </button>
+      <SubmitButton />
       </div>
     </Fragment>
   )

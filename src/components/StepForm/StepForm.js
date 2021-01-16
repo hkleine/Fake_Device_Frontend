@@ -5,8 +5,8 @@ import StepLabel from "@material-ui/core/StepLabel"
 import FirstStep from "./FirstStep"
 import SecondStep from "./SecondStep"
 import ThirdStep from "./ThirdStep"
-import Success from "./Success"
 import formValidation from "./Helper/formValidation"
+import { Redirect } from "react-router-dom";
  
 // Step titles
 const labels = ["First Step", "Second Step", "Third Step"]
@@ -150,6 +150,8 @@ const StepForm = () => {
         )
       case 2:
         return <ThirdStep handleNext={handleNext} handleChange={handleChange} handleBack={handleBack} values={formValues} />
+      case 3: 
+      return <Redirect to='/' />
       default:
         break
     }
