@@ -31,7 +31,6 @@ function EditView({ match }) {
   };
 
   const NEW_CHAT_MESSAGE_EVENT = "newData"; // Name of the event
-  const SOCKET_SERVER_URL = "https://mockd-backend.herokuapp.com";
 
   const updateDevice = async newSensor => {
     newSensor.interval = `PT${newSensor.interval}S`;
@@ -114,7 +113,7 @@ function EditView({ match }) {
 
   useEffect(() => {
     // Creates a WebSocket connection
-    socketRef.current = io(SOCKET_SERVER_URL, { withCredentials: true, transports: ['websocket', 'polling'], query: {"deviceId": params.id } });
+    socketRef.current = io(process.env.REACT_APP_API, { withCredentials: true, transports: ['websocket', 'polling'], query: {"deviceId": params.id } });
 
     // Listens for incoming messages
     socketRef.current.on(NEW_CHAT_MESSAGE_EVENT, (message) => {
