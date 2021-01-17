@@ -114,7 +114,9 @@ function EditView({ match }) {
   useEffect(() => {
     // Creates a WebSocket connection
     socketRef.current = io(process.env.REACT_APP_API, { withCredentials: true, transports: ['websocket', 'polling'], query: {"deviceId": params.id } });
-    console.log(socketRef.current);
+    socketRef.current.on('connect', () => {
+      console.log("connected");
+    });
     // Listens for incoming messages
     socketRef.current.on(NEW_CHAT_MESSAGE_EVENT, (message) => {
       console.log(message);
