@@ -10,7 +10,6 @@ import JSONInput from 'react-json-editor-ajrm';
 import locale from 'react-json-editor-ajrm/locale/en';
 import { NavLink } from 'react-router-dom';
 import { useBeforeunload } from 'react-beforeunload';
-import socketIOClient from "socket.io-client";
 import { io } from 'socket.io-client';
 
 function EditView({ match }) {
@@ -113,7 +112,7 @@ function EditView({ match }) {
 
   useEffect(() => {
     // Creates a WebSocket connection
-    socketRef.current = io.connect(process.env.REACT_APP_API, { withCredentials: true, transports: ['websocket', 'polling'], query: {"deviceId": params.id } });
+    socketRef.current = io(process.env.REACT_APP_API, { withCredentials: true, transports: ['websocket', 'polling'], query: {"deviceId": params.id } });
     socketRef.current.on('connect', () => {
       console.log("connected");
     });
@@ -127,7 +126,7 @@ function EditView({ match }) {
     return () => {
       socketRef.current.disconnect();
     };
-  }, []);
+  }, [process.env.REACT_APP_API]);
 
 
 
