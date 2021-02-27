@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const { getAccessTokenSilently } = useAuth0();
 
-export const getDevice = async () => {
+export default async function getDevice(deviceId) {
   try {
     const accessToken = await getAccessTokenSilently({
       audience: process.env.REACT_APP_AUTH0_AUDIENCE,
@@ -11,7 +11,7 @@ export const getDevice = async () => {
 
     const response = await axios({
       method: 'get',
-      url: `${process.env.REACT_APP_API}/api/device/${params.id}/`,
+      url: `${process.env.REACT_APP_API}/api/device/${deviceId}/`,
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },

@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const { getAccessTokenSilently } = useAuth0();
 
-export const updateDevice = async newDevice => {
+export default async function updateDevice(newDevice) {
     if(newDevice.interval) newDevice.interval = `PT${newDevice.interval}S`;
     try {
       const accessToken = await getAccessTokenSilently({
