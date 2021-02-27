@@ -30,7 +30,7 @@ function EditView({ match }) {
     await updateDevice(data);
   };
 
-  const NEW_LOG_EVENT = "newData"; // Name of the event
+  const NEW_LOG_EVENT = "newData";
 
   const updateDevice = async newSensor => {
     newSensor.interval = `PT${newSensor.interval}S`;
@@ -133,13 +133,6 @@ function EditView({ match }) {
       socketRef.current.disconnect();
     };
   }, []);
-
-
-
-
-  useBeforeunload((event) => {
-    console.log("unloading");
-  });
 
   if (isLoading) {
     return <Loading />;

@@ -16,7 +16,7 @@ const SecondStep = ({ handleNext, handleBack, handleChange, values: { protocol, 
 
   return (
     <>
-    {protocol === 'MQTT' ? (
+    {protocol === 'mqtt' ? (
       <>
         <h2 className="text-gray-700 text-2xl font-medium pb-2">MQTT Destination</h2>
         <Grid item xs={12}>

@@ -6,17 +6,18 @@ import Button from "@material-ui/core/Button"
 import { TextField } from "@material-ui/core"
 import { useAuth0 } from '@auth0/auth0-react';
 import axios from 'axios';
+import { omitBy, isEmpty } from 'lodash';
 
 // Destructuring props
 const ThirdStep = ({ handleNext, handleBack, handleChange, values }) => {
   const { protocol, mqtt_host, mqtt_password, mqtt_topic, mqtt_username, http_host, http_port, http_method, http_auth_token, name } = values
   // Check if all values are not empty or if there are some error
   const isValid = name.length > 0;
-  const { getAccessTokenSilently } = useAuth0();
-
+  const { user, getAccessTokenSilently } = useAuth0();
 
   const handleSubmit = () => {
     // Do whatever with the values
+    values = omitBy(values, isEmpty);
     console.log(values);
     createDevice(values);
     // Show last compinent or success message
@@ -24,6 +25,7 @@ const ThirdStep = ({ handleNext, handleBack, handleChange, values }) => {
   }
 
   const createDevice = async (device) => {
+    const data = {...device, owner: user.sub}
     try {
       const accessToken = await getAccessTokenSilently({
         audience: process.env.REACT_APP_AUTH0_AUDIENCE,
@@ -35,7 +37,7 @@ const ThirdStep = ({ handleNext, handleBack, handleChange, values }) => {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
-        data: device
+        data: data
       });
 
       return;
