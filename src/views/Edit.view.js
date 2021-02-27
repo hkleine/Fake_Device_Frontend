@@ -9,8 +9,8 @@ import 'jsoneditor-react/es/editor.min.css';
 import JSONInput from 'react-json-editor-ajrm';
 import locale from 'react-json-editor-ajrm/locale/en';
 import { NavLink } from 'react-router-dom';
-import { useBeforeunload } from 'react-beforeunload';
 import { io } from 'socket.io-client';
+import { Protocols } from '../types'
 
 function EditView({ match }) {
   let params = match.params;
@@ -112,12 +112,6 @@ function EditView({ match }) {
   }, [register]);
 
   useEffect(() => {
-    // Creates a WebSocket connection
-    // socketRef.current = io(process.env.REACT_APP_API, {
-    //   transports: ['websocket'],
-    //   query: {deviceId: 'test'}
-    // });
-
     socketRef.current.on('connect', () => {
       console.log("connected");
     });
@@ -175,8 +169,8 @@ function EditView({ match }) {
                     setSensor({ ...sensor });
                   }}
                 >
-                  <option value="http">HTTP</option>
-                  <option value="mqtt">MQTT</option>
+                  <option value={Protocols.HTTP}>HTTP</option>
+                  <option value={Protocols.MQTT}>MQTT</option>
                 </select>
                 {errors.protocol?.type === 'required' && <span> This field is required</span>}
               </div>
