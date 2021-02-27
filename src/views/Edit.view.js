@@ -24,7 +24,7 @@ function EditView({ match }) {
   const { handleSubmit, register, errors, setValue } = useForm();
   const socketRef = useRef(io(process.env.REACT_APP_API, {
     transports: ['websocket'],
-    query: {deviceId: 'test'}
+    query: {deviceId: params.id}
   }));
 
   const onSubmit = async data => {
