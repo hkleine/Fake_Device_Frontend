@@ -1,5 +1,5 @@
-const HttpMethods = {
-	PUT: "http",
-	POST: "mqtt",
+export const HttpMethods = {
+	PUT: "PUT",
+	POST: "POST",
 	PATCH: "PATCH",
 }
