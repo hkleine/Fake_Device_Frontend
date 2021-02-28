@@ -53,6 +53,7 @@ function EditView({ match }) {
     const accessToken = await getAccessToken();
     register({ name: 'data' });
     Promise.all([getLogs(params.id, accessToken), getDevice(params.id, accessToken)]).then((data) => {
+      console.glog(data[1]);
       setLogs(data[0]);
       setDevice(data[1])
       setLoading(false);
