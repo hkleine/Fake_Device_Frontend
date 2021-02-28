@@ -53,10 +53,11 @@ function EditView({ match }) {
       const accessToken = await getAccessTokenSilently({
         audience: process.env.REACT_APP_AUTH0_AUDIENCE,
       });
+      console.log(accessToken);
       Promise.all([getLogs(params.id, accessToken), getDevice(params.id, accessToken)]).then((data) => {
-        console.log(data[1].data.data);
+        console.log(data[1].data);
         setLogs(data[0].data);
-        setDevice(data[1].data)
+        setDevice(data[1].data);
         setLoading(false);
       })
     })();
