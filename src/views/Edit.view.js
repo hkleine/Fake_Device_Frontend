@@ -52,8 +52,9 @@ function EditView({ match }) {
   useEffect(async () => {
     const accessToken = await getAccessToken();
     register({ name: 'data' });
-    Promise.all([getLogs(params.id, accessToken), getDevice(params.id, accessToken)]).then((moin) => {
-      console.log(moin);
+    Promise.all([getLogs(params.id, accessToken), getDevice(params.id, accessToken)]).then((data) => {
+      setLogs(data[0]);
+      setDevice(data[1])
       setLoading(false);
     })
   }, [register]);
