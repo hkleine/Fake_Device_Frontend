@@ -55,8 +55,8 @@ function EditView({ match }) {
       });
       Promise.all([getLogs(params.id, accessToken), getDevice(params.id, accessToken)]).then((data) => {
         console.log(data[1]);
-        setLogs(data[0]);
-        setDevice(data[1])
+        setLogs(data[0].data);
+        setDevice(data[1].data)
         setLoading(false);
       })
     })();
