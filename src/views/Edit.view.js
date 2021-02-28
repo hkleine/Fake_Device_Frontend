@@ -16,6 +16,7 @@ function EditView({ match }) {
   let params = match.params;
   const { getAccessTokenSilently } = useAuth0();
   const [isLoading, setLoading] = useState(true);
+  const [accessToken, setAccessToken] = useState();
   const [device, setDevice] = useState();
   const [logs, setLogs] = useState();
   const [openSuccess, setOpenSuccess] = React.useState(false);
@@ -28,9 +29,6 @@ function EditView({ match }) {
 
   const onSubmit = async data => {
     console.log("updating", data);
-    const accessToken = await getAccessTokenSilently({
-      audience: process.env.REACT_APP_AUTH0_AUDIENCE,
-    });
     setLoading(true);
     const newDevice = await updateDevice({...data, _id: params.id}, accessToken);
     console.log(newDevice);
@@ -52,7 +50,7 @@ function EditView({ match }) {
   };
 
   useEffect(() => {
-    const accessToken = getAccessToken();
+    setAccessToken(getAccessToken());
     register({ name: 'data' });
     Promise.all([getLogs(params.id, accessToken), getDevice(params.id, accessToken)]).then((moin) => {
       console.log(moin);
