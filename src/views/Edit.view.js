@@ -28,6 +28,7 @@ function EditView({ match }) {
   }));
 
   const onSubmit = async data => {
+    console.log("updating", data);
     const accessToken = await getAccessTokenSilently({
       audience: process.env.REACT_APP_AUTH0_AUDIENCE,
     });
