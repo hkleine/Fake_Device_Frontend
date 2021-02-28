@@ -54,7 +54,7 @@ function EditView({ match }) {
         audience: process.env.REACT_APP_AUTH0_AUDIENCE,
       });
       Promise.all([getLogs(params.id, accessToken), getDevice(params.id, accessToken)]).then((data) => {
-        console.log(data[1]);
+        console.log(data[1].data);
         setLogs(data[0].data);
         setDevice(data[1].data)
         setLoading(false);
