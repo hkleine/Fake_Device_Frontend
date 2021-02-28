@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-
 export default async function getDevice(deviceId, accessToken) {
   try {
     const response = await axios({

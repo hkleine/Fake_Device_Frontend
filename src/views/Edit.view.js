@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { DashboardLayout } from '../layouts';
-import axios from 'axios';
 import { useAuth0 } from '@auth0/auth0-react';
 import { Loading, ProtocolInputs, SnackbarComponent } from '../components';
 import { useForm } from 'react-hook-form';
@@ -11,13 +10,13 @@ import locale from 'react-json-editor-ajrm/locale/en';
 import { NavLink } from 'react-router-dom';
 import { io } from 'socket.io-client';
 import { Protocols } from '../types';
-import { updateDevice } from '../api';
+import { updateDevice, getDevice, getLogs } from '../api';
 
 function EditView({ match }) {
   let params = match.params;
   const { getAccessTokenSilently } = useAuth0();
   const [isLoading, setLoading] = useState(true);
-  const [sensor, setSensor] = useState();
+  const [device, setDevice] = useState();
   const [logs, setLogs] = useState();
   const [openSuccess, setOpenSuccess] = React.useState(false);
   const [openError, setOpenError] = React.useState(false);
@@ -36,61 +35,27 @@ function EditView({ match }) {
     const newDevice = await updateDevice({...data, _id: params.id}, accessToken);
     console.log(newDevice);
     setLoading(false);
-    setSensor(newDevice.data);
-    setValue('data', newDevice.data);
+    setDevice(newDevice.data);
+    setValue('data', newDevice.data.data);
   };
 
   const NEW_LOG_EVENT = "newData";
 
-  const getDevice = async () => {
-    try {
-      const accessToken = await getAccessTokenSilently({
-        audience: process.env.REACT_APP_AUTH0_AUDIENCE,
-      });
-
-      const response = await axios({
-        method: 'get',
-        url: `${process.env.REACT_APP_API}/api/device/${params.id}/`,
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
-      setSensor(response.data);
-      setValue('data', response.data.data);
-      return;
-    } catch (e) {
-      console.log(e.message);
-    }
-  };
-
-  const getLogs = async () => {
-    try {
-      const accessToken = await getAccessTokenSilently({
-        audience: process.env.REACT_APP_AUTH0_AUDIENCE,
-      });
-
-      const response = await axios({
-        method: 'get',
-        url: `${process.env.REACT_APP_API}/api/device/${params.id}/logs`,
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
-      setLogs(response.data.reverse());
-      console.log(response.data);
-      return;
-    } catch (e) {
-      console.log(e.message);
-    }
-  };
+  const getAccessToken = async () => {
+    return await getAccessTokenSilently({
+      audience: process.env.REACT_APP_AUTH0_AUDIENCE,
+    });
+  }
 
   const intervalAsSeconds = interval => {
     return moment.duration(interval).asSeconds();
   };
 
   useEffect(() => {
+    const accessToken = getAccessToken();
     register({ name: 'data' });
-    Promise.all([getLogs(), getDevice()]).then(() => {
+    Promise.all([getLogs(params.id, accessToken), getDevice(params.id, accessToken)]).then((moin) => {
+      console.log(moin);
       setLoading(false);
     })
   }, [register]);
@@ -121,7 +86,7 @@ function EditView({ match }) {
       <DashboardLayout>
         <div className="flex flex-col pb-12">
           <div className="flex flex-row justify-between">
-            <h1 className="text-gray-700 text-2xl font-medium pb-12">Edit {sensor.name}</h1>
+            <h1 className="text-gray-700 text-2xl font-medium pb-12">Edit {device.name}</h1>
           </div>
           <div className="flex flex-row justify-bewteen">
           <div className="rounded-lg overflow-hidden shadow-sm bg-white p-4 max-w-screen-md p-16">
@@ -130,7 +95,7 @@ function EditView({ match }) {
                 <label className="text-gray-600">Name</label>
                 <input
                   className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none"
-                  defaultValue={sensor.name}
+                  defaultValue={device.name}
                   name="name"
                   ref={register({
                     required: true,
@@ -145,12 +110,12 @@ function EditView({ match }) {
                 <label className="text-gray-600">Protocol</label>
                 <select
                   className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none"
-                  defaultValue={sensor.protocol}
+                  defaultValue={device.protocol}
                   name="protocol"
                   ref={register({ required: true })}
                   onChange={e => {
-                    sensor.protocol = e.currentTarget.value;
-                    setSensor({ ...sensor });
+                    device.protocol = e.currentTarget.value;
+                    setDevice({ ...device });
                   }}
                 >
                   <option value={Protocols.HTTP}>HTTP</option>
@@ -159,13 +124,13 @@ function EditView({ match }) {
                 {errors.protocol?.type === 'required' && <span> This field is required</span>}
               </div>
 
-              <ProtocolInputs sensor={sensor} setSensor={setSensor} register={register} />
+              <ProtocolInputs device={device} setDevice={setDevice} register={register} />
 
               <div className="flex flex-col pb-12 max-w-lg">
                 <label className="text-gray-600">Interval</label>
                 <input
                   className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none"
-                  defaultValue={intervalAsSeconds(sensor.interval)}
+                  defaultValue={intervalAsSeconds(device.interval)}
                   type="number"
                   min="20"
                   name="interval"
@@ -179,7 +144,7 @@ function EditView({ match }) {
                 <div className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none">
                   <JSONInput
                     id="a_unique_id"
-                    placeholder={sensor.data}
+                    placeholder={device.data}
                     locale={locale}
                     height="350px"
                     onChange={e => setValue('data', e.jsObject)}
