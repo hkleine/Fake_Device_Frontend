@@ -28,12 +28,12 @@ function EditView({ match }) {
 
   const onSubmit = async data => {
     console.log("updating", data);
-    setLoading(true);
+    //setLoading(true);
     const newDevice = await updateDevice({...data, _id: params.id}, await getAccessToken());
     console.log(newDevice);
     setDevice(newDevice.data);
     setValue('data', newDevice.data.data);
-    setLoading(false);
+    //setLoading(false);
   };
 
   const NEW_LOG_EVENT = "newData";
