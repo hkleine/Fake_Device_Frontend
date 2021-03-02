@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 export default async function getLogs(deviceId, accessToken) {
-    try {
       const response = await axios({
         method: 'get',
         url: `${process.env.REACT_APP_API}/api/device/${deviceId}/logs`,
@@ -10,8 +9,4 @@ export default async function getLogs(deviceId, accessToken) {
         },
       });
       return response.data.reverse();
-    } catch (e) {
-      console.log(e.message);
-      return e;
-    }
   };

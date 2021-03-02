@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 export default async function getDevice(deviceId, accessToken) {
-  try {
     const response = await axios({
       method: 'get',
       url: `${process.env.REACT_APP_API}/api/device/${deviceId}/`,
@@ -10,8 +9,4 @@ export default async function getDevice(deviceId, accessToken) {
       },
     });
     return response
-  } catch (e) {
-    console.log(e.message);
-    return e;
-  }
 };

@@ -20,20 +20,27 @@ function EditView({ match }) {
   const [logs, setLogs] = useState();
   const [openSuccess, setOpenSuccess] = React.useState(false);
   const [openError, setOpenError] = React.useState(false);
+  const [errorText, setErrorText] = React.useState("");
   const { handleSubmit, register, errors, setValue } = useForm();
   const socketRef = useRef(io(process.env.REACT_APP_API, {
     transports: ['websocket'],
     query: {deviceId: params.id}
   }));
 
-  const onSubmit = async data => {
-    console.log("updating", data);
-    setLoading(true);
-    const newDevice = await updateDevice({...data, _id: params.id}, await getAccessToken());
-    setDevice(newDevice.data);
-    setValue('data', newDevice.data.data);
-    setLoading(false);
-    setOpenSuccess(true)
+  const onSubmit = async data => {    setLoading(true);
+    try {
+      const newDevice = await updateDevice({...data, _id: params.id}, await getAccessToken());
+      setDevice(newDevice.data);
+      setValue('data', newDevice.data.data);
+      setLoading(false);
+      setOpenSuccess(true);
+    } catch (error) {
+      setErrorText(error.message);
+      console.log(error);
+      setOpenError(true);
+      setLoading(false);
+    }
+
   };
 
   const NEW_LOG_EVENT = "newData";
@@ -192,7 +199,7 @@ function EditView({ match }) {
           Successfully updated Device
         </SnackbarComponent>
         <SnackbarComponent open={openError} setOpen={setOpenError} severity={'error'}>
-          Error while updating Device
+          { errorText }
         </SnackbarComponent>
       </DashboardLayout>
     </div>
