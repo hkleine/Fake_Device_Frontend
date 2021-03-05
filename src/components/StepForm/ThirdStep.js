@@ -1,12 +1,12 @@
 import React, { Fragment } from "react"
 import Grid from "@material-ui/core/Grid"
-import FormControl from "@material-ui/core/FormControl"
-import InputLabel from "@material-ui/core/InputLabel"
 import Button from "@material-ui/core/Button"
 import { TextField } from "@material-ui/core"
 import { useAuth0 } from '@auth0/auth0-react';
 import axios from 'axios';
 import { omitBy, isEmpty } from 'lodash';
+import SnackbarComponent from "../SnackbarComponent"
+import {createDevice} from '../../api'
 
 // Destructuring props
 const ThirdStep = ({ handleNext, handleBack, handleChange, values }) => {
@@ -15,36 +15,21 @@ const ThirdStep = ({ handleNext, handleBack, handleChange, values }) => {
   const isValid = name.length > 0;
   const { user, getAccessTokenSilently } = useAuth0();
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     // Do whatever with the values
     values = omitBy(values, isEmpty);
-    console.log(values);
-    createDevice(values);
-    // Show last compinent or success message
-    handleNext()
-  }
-
-  const createDevice = async (device) => {
-    const data = {...device, owner: user.sub}
+    const device = {...values, owner: user.sub}
+    const accessToken = await getAccessTokenSilently({
+      audience: process.env.REACT_APP_AUTH0_AUDIENCE,
+    });
     try {
-      const accessToken = await getAccessTokenSilently({
-        audience: process.env.REACT_APP_AUTH0_AUDIENCE,
-      });
-
-      const response = await axios({
-        method: 'post',
-        url: `${process.env.REACT_APP_API}/api/device/create`,
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-        data: data
-      });
-
-      return;
+      await createDevice(device, accessToken);
+      handleNext(true);
     } catch (e) {
       console.log(e.message);
+      handleNext(false);
     }
-  };
+  }
 
   function SubmitButton() {
     if (isValid) {

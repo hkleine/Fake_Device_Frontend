@@ -5,7 +5,6 @@ const isZip = RegExp(/^[0-9]{5}([- /]?[0-9]{4})?$/) // us
 const isNumber = RegExp(/^\d+$/)
 
 export default function formValidation(name, value, schema) {
-  console.log(schema);
   const { validate, minLength, maxLength } = schema[name]
   let error = ""
 

@@ -26,6 +26,7 @@ function EditView({ match }) {
     transports: ['websocket'],
     query: {deviceId: params.id}
   }));
+  const NEW_LOG_EVENT = "newData";
 
   const onSubmit = async data => {    setLoading(true);
     try {
@@ -36,14 +37,11 @@ function EditView({ match }) {
       setOpenSuccess(true);
     } catch (error) {
       setErrorText(error.message);
-      console.log(error);
       setOpenError(true);
       setLoading(false);
     }
 
   };
-
-  const NEW_LOG_EVENT = "newData";
 
   const getAccessToken = async () => {
     return await getAccessTokenSilently({
@@ -61,9 +59,7 @@ function EditView({ match }) {
       const accessToken = await getAccessTokenSilently({
         audience: process.env.REACT_APP_AUTH0_AUDIENCE,
       });
-      console.log(accessToken);
       Promise.all([getLogs(params.id, accessToken), getDevice(params.id, accessToken)]).then((data) => {
-        console.log(data[1].data, data[0]);
         setLogs(data[0]);
         setDevice(data[1].data);
         setLoading(false);

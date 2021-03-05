@@ -7,6 +7,7 @@ import SecondStep from "./SecondStep"
 import ThirdStep from "./ThirdStep"
 import formValidation from "./Helper/formValidation"
 import { Redirect } from "react-router-dom";
+import SnackbarComponent from "../SnackbarComponent"
  
 // Step titles
 const labels = ["First Step", "Second Step", "Third Step"]
@@ -85,18 +86,6 @@ const fieldsValidation = {
     minLength: 2,
     maxLength: 20
   },
-  email: {
-    error: "",
-    validate: "email"
-  },
-  gender: {},
-  date: {},
-  city: {
-    error: "",
-    validate: "text",
-    minLength: 3,
-    maxLength: 20
-  },
   interval: {
     error: "",
     validate: "number",
@@ -108,9 +97,14 @@ const StepForm = () => {
   const [activeStep, setActiveStep] = useState(0)
   const [formValues, setFormValues] = useState(defaultDevice)
   const [formErrors, setFormErrors] = useState({})
+  const [hasCreationSucceeded, setHasDeviceCrationSucceeded] = React.useState(false);
 
   // Proceed to next step
-  const handleNext = () => setActiveStep(prev => prev + 1)
+  const handleNext = (hasCreationSucceeded) => {
+    setHasDeviceCrationSucceeded(hasCreationSucceeded);
+    console.log(hasCreationSucceeded);
+    setActiveStep(prev => prev + 1)
+  }
   // Go back to prev step
   const handleBack = () => setActiveStep(prev => prev - 1)
 
@@ -151,7 +145,12 @@ const StepForm = () => {
       case 2:
         return <ThirdStep handleNext={handleNext} handleChange={handleChange} handleBack={handleBack} values={formValues} />
       case 3: 
-      return <Redirect to='/' />
+      return (
+          <Redirect to={{
+            pathname: "/",
+            state: { deviceCreationSucceeded: hasCreationSucceeded }
+          }}/>
+      )
       default:
         break
     }
