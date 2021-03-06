@@ -1,18 +1,12 @@
 import React, { Fragment } from "react"
 import Grid from "@material-ui/core/Grid"
 import { Protocols } from '../../types';
+import { SubmitButton } from '../'
 
 // Destructuring props
 const FirstStep = ({ handleNext, handleChange, values: { protocol } }) => {
   // Check if all values are not empty or if there are some error
   const isValid = protocol.length > 0;
-
-  function NextButton() {
-    if (isValid) {
-      return <button className="bg-primary hover:bg-purple-700 text-white font-bold py-2 px-10 rounded shadow" disabled={!isValid} onClick={isValid ? handleNext : null} type="submit">Next</button>;
-    }
-    return <button className="bg-gray-500 hover:bg-gray-500 text-white font-bold py-2 px-10 rounded shadow" disabled type="submit">Next</button>;
-  }
 
   return (
     <Fragment>
@@ -31,7 +25,7 @@ const FirstStep = ({ handleNext, handleChange, values: { protocol } }) => {
           </div>
       </Grid>
       <div style={{ display: "flex", marginTop: 50, justifyContent: "flex-end" }}>
-        <NextButton />
+        <SubmitButton isValid={isValid} onClick={handleNext}>next</SubmitButton>
       </div>
     </Fragment>
   )

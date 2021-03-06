@@ -5,6 +5,8 @@ import { TextField } from "@material-ui/core"
 import { useAuth0 } from '@auth0/auth0-react';
 import { omitBy, isEmpty } from 'lodash';
 import {createDevice} from '../../api'
+import { SubmitButton } from '../'
+
 
 // Destructuring props
 const ThirdStep = ({ handleNext, handleBack, handleChange, values }) => {
@@ -28,13 +30,6 @@ const ThirdStep = ({ handleNext, handleBack, handleChange, values }) => {
     }
   }
 
-  function SubmitButton() {
-    if (isValid) {
-      return <button className="bg-primary hover:bg-purple-700 text-white font-bold py-2 px-10 rounded shadow" disabled={!isValid} onClick={isValid ? handleSubmit : null} type="submit">submit</button>;
-    }
-    return <button className="bg-gray-500 hover:bg-gray-500 text-white font-bold py-2 px-10 rounded shadow" disabled type="submit">submit</button>;
-  }
-
   return (
     <Fragment>
       <Grid container spacing={2} noValidate>
@@ -54,7 +49,7 @@ const ThirdStep = ({ handleNext, handleBack, handleChange, values }) => {
       <Button variant="contained" color="default" onClick={handleBack} style={{ marginRight: 10 }}>
         Back
       </Button>
-      <SubmitButton />
+      <SubmitButton isValid={isValid} onClick={handleSubmit}>submit</SubmitButton>
       </div>
     </Fragment>
   )

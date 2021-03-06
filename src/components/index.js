@@ -13,6 +13,7 @@ import AddDeviceButton from './AddDeviceButton';
 import ProtocolInputs from './ProtocolInputs';
 import DeleteDialog from './DeleteDialog';
 import SnackbarComponent from './SnackbarComponent';
+import SubmitButton from './SubmitButton';
 
 export {
   PrivateRoute,
@@ -29,5 +30,6 @@ export {
   AddDeviceButton,
   ProtocolInputs,
   DeleteDialog,
-  SnackbarComponent
+  SnackbarComponent,
+  SubmitButton
 };

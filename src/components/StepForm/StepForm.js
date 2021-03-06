@@ -46,10 +46,6 @@ const fieldsValidation = {
     minLength: 2,
     maxLength: 20
   },
-  http_port: {
-    error: "",
-    validate: "number",
-  },
   http_method: {
     error: "",
     validate: "method",

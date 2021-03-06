@@ -2,18 +2,13 @@ import React from "react"
 import Grid from "@material-ui/core/Grid"
 import {TextField, Button, Select, MenuItem, FormControl, InputLabel} from "@material-ui/core"
 import { HttpMethods } from '../../types'
+import { SubmitButton } from '../'
+
 
 // Destructuring props
-const SecondStep = ({ handleNext, handleBack, handleChange, values: { protocol, mqtt_host, mqtt_password, mqtt_topic, mqtt_username, http_host, http_port, http_method, http_auth_token }, formErrors }) => {
+const SecondStep = ({ handleNext, handleBack, handleChange, values: { protocol, mqtt_host, mqtt_password, mqtt_topic, mqtt_username, http_host, http_method, http_auth_token }, formErrors }) => {
   // Check if all values are not empty or if there are some error
-  const isValid = (mqtt_host.length > 0 && mqtt_username.length > 0 && mqtt_topic.length > 0) || (http_host.length > 0 && http_port.length > 0 && http_method.length > 0);
-
-  function NextButton() {
-    if (isValid) {
-      return <button className="bg-primary hover:bg-purple-700 text-white font-bold py-2 px-10 rounded shadow" disabled={!isValid} onClick={isValid ? handleNext : null} type="submit">next</button>;
-    }
-    return <button className="bg-gray-500 hover:bg-gray-500 text-white font-bold py-2 px-10 rounded shadow" disabled type="submit">next</button>;
-  }
+  const isValid = (mqtt_host.length > 0 && mqtt_username.length > 0 && mqtt_topic.length > 0) || (http_host.length > 0 && http_method.length > 0);
 
   return (
     <>
@@ -72,7 +67,7 @@ const SecondStep = ({ handleNext, handleBack, handleChange, values: { protocol, 
             <Button variant="contained" color="default" onClick={handleBack} style={{ marginRight: 10 }}>
               Back
             </Button>
-            <NextButton />
+            <SubmitButton isValid={isValid} onClick={handleNext}>next</SubmitButton>
           </div>
         </>
         ) : (
@@ -89,16 +84,6 @@ const SecondStep = ({ handleNext, handleBack, handleChange, values: { protocol, 
                 onChange={handleChange}
                 // error={!!formErrors.city}
                 // helperText={formErrors.city}
-                required
-              />
-              <TextField
-                type="number"
-                fullWidth
-                label="HTTP Port"
-                name="http_port"
-                value={http_port || ""}
-                onChange={handleChange}
-                margin="normal"
                 required
               />
             </Grid>
@@ -137,7 +122,7 @@ const SecondStep = ({ handleNext, handleBack, handleChange, values: { protocol, 
                 <Button variant="contained" color="default" onClick={handleBack} style={{ marginRight: 10 }}>
                   Back
                 </Button>
-                <NextButton />
+                <SubmitButton isValid={isValid} onClick={handleNext}>next</SubmitButton>
               </div>
           </> 
         )}
