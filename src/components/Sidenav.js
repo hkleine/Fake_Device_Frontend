@@ -6,13 +6,13 @@ import LogoutButton from './LogoutButton';
 import Logo from './Logo';
 
 const SideNav = () => (
-  <div className="fixed z-30 inset-y-0 left-0 h-screen transition duration-300 transform bg-white lg:translate-x-0 lg:static lg:inset-0">
+  <div className="z-30 inset-y-0 left-0 h-screen transition duration-300 transform bg-white lg:translate-x-0 lg:static lg:inset-0">
     <Logo className="m-auto" />
-    <nav className="mt-24 px-12">
+    <nav className="mt-24 md:px-12">
       <NavLink
         to="/"
         exact
-        className="text-lg mb-8 font-medium flex w-48 items-center py-2 px-6 bg-white text-gray-600 rounded-full"
+        className="text-lg mb-8 font-medium flex  md:w-48 items-center py-2 px-6 bg-white text-gray-600 rounded-full"
         activeStyle={{ color: '#5D40B8', background: '#f2f5f9' }}
       >
         <IconContext.Provider value={{ style: { fontSize: '25px' } }}>
@@ -20,11 +20,11 @@ const SideNav = () => (
             <HiOutlineViewGrid />
           </div>
         </IconContext.Provider>
-        <span className="ml-6">Dashboard</span>
+        <span className="ml-6 hidden md:block">Dashboard</span>
       </NavLink>
       <NavLink
         to="/alerts"
-        className="text-lg mb-8 font-medium flex w-48 items-center py-2 px-6 bg-white text-gray-600 rounded-full"
+        className="text-lg mb-8 font-medium flex  md:w-48 items-center py-2 px-6 bg-white text-gray-600 rounded-full"
         activeStyle={{ color: '#5D40B8', background: '#F9FBFD' }}
       >
         <IconContext.Provider value={{ style: { fontSize: '25px' } }}>
@@ -32,11 +32,11 @@ const SideNav = () => (
             <HiOutlineBell />
           </div>
         </IconContext.Provider>
-        <span className="ml-6">Alerts</span>
+        <span className="ml-6 hidden md:block">Alerts</span>
       </NavLink>
       <NavLink
         to="/statistics"
-        className="text-lg mb-8 font-medium flex w-48 items-center py-2 px-6 bg-white text-gray-600 rounded-full"
+        className="text-lg mb-8 font-medium flex md:w-48 items-center py-2 px-6 bg-white text-gray-600 rounded-full"
         activeStyle={{ color: '#5D40B8', background: '#f2f5f9' }}
       >
         <IconContext.Provider value={{ style: { fontSize: '25px' } }}>
@@ -45,11 +45,11 @@ const SideNav = () => (
           </div>
         </IconContext.Provider>
 
-        <span className="ml-6">Statistics</span>
+        <span className="ml-6 hidden md:block">Statistics</span>
       </NavLink>
       <NavLink
         to="/profile"
-        className="text-lg mb-8 font-medium flex w-48 items-center py-2 px-6 bg-white text-gray-600 rounded-full"
+        className="text-lg mb-8 font-medium flex md:w-48 items-center py-2 px-6 bg-white text-gray-600 rounded-full"
         activeStyle={{ color: '#5D40B8', background: '#f2f5f9' }}
       >
         <IconContext.Provider value={{ style: { fontSize: '25px' } }}>
@@ -58,7 +58,7 @@ const SideNav = () => (
           </div>
         </IconContext.Provider>
 
-        <span className="ml-6">Profile</span>
+        <span className="ml-6 hidden md:block">Profile</span>
       </NavLink>
       <LogoutButton />
     </nav>

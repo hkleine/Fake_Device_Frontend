@@ -69,12 +69,12 @@ function EditView({ match }) {
   }, [register, getAccessTokenSilently, params.id]);
 
   useEffect(() => {
-    socketRef.current.on('connect', (socket) => {
+    socketRef.current.on('connect', () => {
       console.log("connected");
     });
     
     // Listens for incoming messages
-    socketRef.current.on(NEW_LOG_EVENT, (message) => {
+    socketRef.current.on(params.id, (message) => {
       console.log(message);
     });
     

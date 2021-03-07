@@ -12,14 +12,14 @@ const LogoutButton = () => {
           returnTo: window.location.origin,
         })
       }
-      className="text-lg mb-8 font-medium flex w-48 items-center py-2 px-6 bg-white bg-opacity-25 text-gray-600 rounded-full"
+      className="text-lg mb-8 font-medium flex md:w-48 items-center py-2 px-6 bg-white bg-opacity-25 text-gray-600 rounded-full"
     >
         <IconContext.Provider value={{ style: { fontSize: '25px' } }}>
           <div>
             <HiOutlineLogout />
           </div>
         </IconContext.Provider>
-        <span className="ml-6">Logout</span>
+        <span className="ml-6 hidden md:block">Logout</span>
     </button>
   );
 };
