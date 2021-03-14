@@ -1,16 +1,16 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { DashboardLayout } from '../layouts';
 import { useAuth0 } from '@auth0/auth0-react';
-import { Loading, ProtocolInputs, SnackbarComponent } from '../components';
+import { DeviceToggleButton, Loading, ProtocolInputs, SnackbarComponent } from '../components';
 import { useForm } from 'react-hook-form';
 import moment from 'moment';
 import 'jsoneditor-react/es/editor.min.css';
 import JSONInput from 'react-json-editor-ajrm';
 import locale from 'react-json-editor-ajrm/locale/en';
 import { NavLink } from 'react-router-dom';
-import { io } from 'socket.io-client';
 import { Protocols } from '../types';
 import { updateDevice, getDevice, getLogs } from '../api';
+import { SocketContext } from '../api'
 
 function EditView({ match }) {
   let params = match.params;
@@ -22,11 +22,7 @@ function EditView({ match }) {
   const [openError, setOpenError] = React.useState(false);
   const [errorText, setErrorText] = React.useState("");
   const { handleSubmit, register, errors, setValue } = useForm();
-  const socketRef = useRef(io(process.env.REACT_APP_API, {
-    transports: ['websocket'],
-    query: {deviceId: params.id}
-  }));
-  const NEW_LOG_EVENT = "newData";
+  const socket = useContext(SocketContext)
 
   const onSubmit = async data => {
     setLoading(true);
@@ -69,21 +65,25 @@ function EditView({ match }) {
   }, [register, getAccessTokenSilently, params.id]);
 
   useEffect(() => {
-    socketRef.current.on('connect', () => {
-      console.log("connected");
-    });
-    
-    // Listens for incoming messages
-    socketRef.current.on(params.id, (message) => {
+    socket.on(params.id, (message) => {
       console.log(message);
-    });
-    
-    // Destroys the socket reference
-    // when the connection is closed
+    })
+
     return () => {
-      socketRef.current.disconnect();
+      console.log("disconnecting");
+      socket.disconnect();
     };
-  });
+
+  }, [socket, params.id,]);
+
+  // useEffect(() => {
+  //   // Destroys the socket reference
+  //   // when the connection is closed
+  //   return () => {
+  //     console.log("disconnecting");
+  //     socket.disconnect();
+  //   };
+  // })
 
   if (isLoading) {
     return <Loading />;
@@ -98,6 +98,7 @@ function EditView({ match }) {
           </div>
           <div className="flex flex-row justify-bewteen">
           <div className="rounded-lg overflow-hidden shadow-sm bg-white p-4 max-w-screen-md p-16">
+            <DeviceToggleButton device={device} setDevice={setDevice} />
             <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
               <div className="flex flex-col pb-12 max-w-lg">
                 <label className="text-gray-600">Name</label>

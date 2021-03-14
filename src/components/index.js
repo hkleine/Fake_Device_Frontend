@@ -14,6 +14,7 @@ import ProtocolInputs from './ProtocolInputs';
 import DeleteDialog from './DeleteDialog';
 import SnackbarComponent from './SnackbarComponent';
 import SubmitButton from './SubmitButton';
+import DeviceToggleButton from './DeviceToggleButton';
 
 export {
   PrivateRoute,
@@ -31,5 +32,6 @@ export {
   ProtocolInputs,
   DeleteDialog,
   SnackbarComponent,
-  SubmitButton
+  SubmitButton,
+  DeviceToggleButton
 };

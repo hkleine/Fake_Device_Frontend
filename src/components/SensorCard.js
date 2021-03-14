@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import { NavLink } from 'react-router-dom';
 
-import {DeleteDialog} from '../components';
+import { DeleteDialog, DeviceToggleButton } from '../components';
 import { HiOutlineCode, HiOutlineTrash, HiOutlineClock } from 'react-icons/hi';
 import { IconContext } from 'react-icons';
 import axios from 'axios';
-import Toggle from 'react-toggle';
 import "react-toggle/style.css";
 import { useAuth0 } from "@auth0/auth0-react";
 import moment from 'moment';
@@ -16,16 +15,6 @@ function SensorCard({sensorIn, updateSensors}) {
     const [sensor, setSensor] = useState(sensorIn);
     const [open, setOpen] = useState(false);
     const editUrl = `/edit/${sensorIn._id}`;
-
-    async function toggleSensor() {
-        const accessToken = await getAccessTokenSilently({
-            audience: process.env.REACT_APP_AUTH0_AUDIENCE,
-        });
-        axios({ method: 'get', url: `${process.env.REACT_APP_API}/api/device/${sensor._id}/toggle`, headers: {Authorization: `Bearer ${accessToken}`,} })
-        .then(response => {
-            setSensor(response.data);
-        });
-    }
 
     async function deleteSensor() {
         const accessToken = await getAccessTokenSilently({
@@ -86,13 +75,7 @@ function SensorCard({sensorIn, updateSensors}) {
                 </div>
             }
             <div className="flex flex-row items-center">
-                <label>
-                    <Toggle
-                        className="toggle"
-                        onChange={toggleSensor}
-                        defaultChecked={sensor.is_running}
-                        icons={false} />
-                </label>
+                <DeviceToggleButton device={sensor} setDevice={setSensor} />
                 <div className="flex flex-row items-center pb-2 pl-4">
                     <IconContext.Provider value={{ style: { fontSize: '15px' } }}>
                         <div className="text-gray-600">
