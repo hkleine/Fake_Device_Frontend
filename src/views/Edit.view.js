@@ -10,7 +10,7 @@ import locale from 'react-json-editor-ajrm/locale/en';
 import { NavLink } from 'react-router-dom';
 import { Protocols } from '../types';
 import { updateDevice, getDevice, getLogs } from '../api';
-import { SocketContext } from '../api'
+import { SocketContext } from '../context/SocketContext'
 
 function EditView({ match }) {
   let params = match.params;
@@ -65,16 +65,21 @@ function EditView({ match }) {
   }, [register, getAccessTokenSilently, params.id]);
 
   useEffect(() => {
+    socket.on('connect', () => {
+      console.log("connected");
+    });
+    
+    // Listens for incoming messages
     socket.on(params.id, (message) => {
       console.log(message);
-    })
+    });
 
     return () => {
       console.log("disconnecting");
       socket.disconnect();
     };
 
-  }, [socket, params.id,]);
+  }, []);
 
   // useEffect(() => {
   //   // Destroys the socket reference

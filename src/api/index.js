@@ -3,7 +3,6 @@ import getDevice from './getDevice.api';
 import getLogs from './getLogs.api';
 import getDevices from './getDevices.api';
 import createDevice from './createDevice.api'
-import { SocketProvider, SocketContext } from './SocketContext';
 
 export { 
     updateDevice,
@@ -11,6 +10,4 @@ export {
     getLogs,
     getDevices,
     createDevice,
-    SocketContext,
-    SocketProvider
 };

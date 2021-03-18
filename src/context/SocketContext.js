@@ -4,7 +4,9 @@ import io from 'socket.io-client'
 const SocketContext = React.createContext()
 
 const SocketProvider = ({ children }) => {
-    const socket = io(process.env.REACT_APP_API, { transports: ['websocket', 'polling'] })
+    const socket = io(process.env.REACT_APP_API, {
+        transports: ['websocket'],
+      });
     return (
         <SocketContext.Provider value={socket}>
             {children}
