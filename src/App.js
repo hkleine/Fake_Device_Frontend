@@ -12,11 +12,11 @@ const App = () => {
     <div id="app" className="d-flex flex-column h-100 h-screen bg-gray-200">
         <Switch>
           <PrivateRoute path="/" exact component={Dashboard} />
+          <PrivateRoute path="/add" exact component={AddView} />
           <PrivateRoute path="/alerts" exact component={AlertView} />
           <PrivateRoute path="/statistics" exact component={StatisticView} />
-          <SocketProvider><PrivateRoute path="/edit/:id" exact component={EditView} /></SocketProvider>
-          <PrivateRoute path="/add" exact component={AddView} />
           <PrivateRoute path="/profile" exact component={ProfileView} />
+          <SocketProvider><PrivateRoute path="/edit/:id" exact component={EditView} /></SocketProvider>
         </Switch>
     </div>
   );
