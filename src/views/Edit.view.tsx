@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { DashboardLayout } from '../layouts';
 import { useAuth0 } from '@auth0/auth0-react';
 import { DeviceToggleButton, Loading, ProtocolInputs, SnackbarComponent } from '../components';
@@ -16,7 +16,7 @@ function EditView({ match }: any) {
   let params = match.params;
   const { getAccessTokenSilently } = useAuth0();
   const [isLoading, setLoading] = useState(true);
-  const [device, setDevice] = useState<Device>();
+  const [device, setDevice] = useState<Device | null>(null);
   const [logs, setLogs] = useState<Log[]>();
   const [openSuccess, setOpenSuccess] = React.useState(false);
   const [openError, setOpenError] = React.useState(false);
@@ -71,7 +71,6 @@ function EditView({ match }: any) {
     
     // Listens for incoming messages
     socket.on(params.id, (log: Log) => {
-      console.log(log);
       setLogs(prevLogs => [log, ...prevLogs as Log[]]);
     });
 
@@ -83,10 +82,11 @@ function EditView({ match }: any) {
   }, []);
 
   if (isLoading) {
-    return <Loading />;
+    return <Loading isLoading={true}/>;
   }
 
   return (
+    device && logs ?
     <div>
       <DashboardLayout>
         <div className="flex flex-col pb-12">
@@ -148,7 +148,7 @@ function EditView({ match }: any) {
               <div className="flex flex-col pb-12 w-full">
                 <label className="text-gray-600">JSON Data</label>
                 <div className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none">
-                  <JSONInput
+                  {/* <JSONInput
                     id="a_unique_id"
                     placeholder={device.data}
                     locale={locale}
@@ -161,7 +161,7 @@ function EditView({ match }: any) {
                       number: '#667eea',
                       colon: '#4a5568',
                     }}
-                  />
+                  /> */}
                 </div>
               </div>
 
@@ -198,6 +198,7 @@ function EditView({ match }: any) {
         </SnackbarComponent>
       </DashboardLayout>
     </div>
+    : null
   );
 }
 
