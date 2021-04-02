@@ -4,13 +4,13 @@ import { NavLink } from 'react-router-dom';
 import { DeleteDialog, DeviceToggleButton } from '.';
 import { HiOutlineCode, HiOutlineTrash, HiOutlineClock } from 'react-icons/hi';
 import { IconContext } from 'react-icons';
-import axios from 'axios';
 import "react-toggle/style.css";
 import { useAuth0 } from "@auth0/auth0-react";
 import moment, { Duration } from 'moment';
 import { Device } from "../types";
 import { DevicesContext } from "../context";
 import { List, remove } from "lodash";
+import { deleteDevice } from '../api'
 
 
 function DeviceCard({deviceIn}: any) {
@@ -20,22 +20,15 @@ function DeviceCard({deviceIn}: any) {
     const editUrl = `/edit/${deviceIn._id}`;
     const {devices, setCurrentDevices} = useContext(DevicesContext)
 
-    function updatedevices(updatedDevice: Device) {
-        setCurrentDevices([]);
-        remove(devices as List<Device>, function (device: Device) {
-          return device._id === updatedDevice._id;
-        });
-        setCurrentDevices(devices)
-    }
-
-    async function deleteDevice() {
+    async function removeDeviceFromDevices() {
         const accessToken = await getAccessTokenSilently({
             audience: process.env.REACT_APP_AUTH0_AUDIENCE,
         });
-        axios({ method: 'delete', url: `${process.env.REACT_APP_API}/api/device/${device._id}`, headers: {Authorization: `Bearer ${accessToken}`,} })
-        .then(() => {
-            updatedevices(device);
-        });
+        await deleteDevice(device._id, accessToken);
+        remove(devices as List<Device>, function (deviceToRemove: Device) {
+            return deviceToRemove._id === device._id;
+          });
+        setCurrentDevices(devices)
     }
 
     function parseInterval(interval: Duration) {
@@ -48,7 +41,7 @@ function DeviceCard({deviceIn}: any) {
 
   return (
     <div className="max-w-sm rounded-lg overflow-hidden shadow-sm bg-white p-4">
-        <DeleteDialog open={open} setOpen={setOpen} deleteDevice={deleteDevice} />
+        <DeleteDialog open={open} setOpen={setOpen} deleteDevice={removeDeviceFromDevices} />
 
         <div className="flex flex-col">
             <div className="flex flex-row justify-between">

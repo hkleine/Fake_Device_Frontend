@@ -5,13 +5,12 @@ import { DeviceGrid, Loading, SnackbarComponent } from '../components';
 import { useAuth0 } from "@auth0/auth0-react";
 import { getDevices } from '../api';
 import { Device } from '../types';
-import { DevicesContext } from "../context";
+import { DevicesProvider } from "../context";
 
 export function Dashboard(props: RouteComponentProps) {
   const [isLoading, setLoading] = useState(true);
   const { getAccessTokenSilently } = useAuth0();
   const [devices, setDevices] = useState<Device[]>();
-  const value = {devices, setDevices}
   const [openSuccess, setOpenSuccess] = React.useState(false);
   const [openError, setOpenError] = React.useState(false);
 
@@ -59,9 +58,9 @@ export function Dashboard(props: RouteComponentProps) {
           <div className="flex flex-row justify-between">
             <h1 className="text-gray-700 text-2xl font-medium pb-12">Dashboard</h1>
           </div>
-          <DevicesContext.Provider value={{devices: devices, setCurrentDevices: setDevices}}>
+          <DevicesProvider value={{devices: devices, setCurrentDevices: setDevices}}>
             <DeviceGrid  />
-          </DevicesContext.Provider>
+          </DevicesProvider>
         </div>
       </DashboardLayout>
       <SnackbarComponent open={openSuccess} setOpen={setOpenSuccess} severity={'success'}>
