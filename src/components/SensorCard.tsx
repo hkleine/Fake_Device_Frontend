@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import { NavLink } from 'react-router-dom';
 
-import { DeleteDialog, DeviceToggleButton } from '../components';
+import { DeleteDialog, DeviceToggleButton } from '.';
 import { HiOutlineCode, HiOutlineTrash, HiOutlineClock } from 'react-icons/hi';
 import { IconContext } from 'react-icons';
 import axios from 'axios';
 import "react-toggle/style.css";
 import { useAuth0 } from "@auth0/auth0-react";
-import moment from 'moment';
+import moment, { Duration } from 'moment';
 
 
-function SensorCard({sensorIn, updateSensors}) {
+function SensorCard({sensorIn, updateSensors}: any) {
     const { getAccessTokenSilently } = useAuth0();
     const [sensor, setSensor] = useState(sensorIn);
     const [open, setOpen] = useState(false);
@@ -26,7 +26,7 @@ function SensorCard({sensorIn, updateSensors}) {
         });
     }
 
-    function parseInterval(interval) {
+    function parseInterval(interval: Duration) {
         const intervalInSec = moment.duration(interval).asSeconds();
         if(intervalInSec < 60) return `${intervalInSec}s`;
         else if(intervalInSec < 3600) return `${moment.duration(interval).asMinutes()}m`;
@@ -42,7 +42,7 @@ function SensorCard({sensorIn, updateSensors}) {
             <div className="flex flex-row justify-between">
                 <h3 className="text-gray-700 text-lg">{sensor.name}</h3>
                 <div className="flex flex-row">
-                    <NavLink className="outline-none pr-2" to={editUrl} sensor={sensor} >
+                    <NavLink className="outline-none pr-2" to={editUrl}>
                         <IconContext.Provider value={{ style: { fontSize: '20px' } }}>
                             <div className="text-gray-600 hover:text-purple-700">
                                 <HiOutlineCode />

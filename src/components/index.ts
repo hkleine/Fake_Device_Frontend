@@ -1,7 +1,6 @@
 import PrivateRoute from './PrivateRoute';
 import Loading from './Loading';
 import Auth0ProviderWithHistory from './Auth0ProviderWithHistory';
-import LoginButton from './LoginButton';
 import LogoutButton from './LogoutButton';
 import SideNav from './Sidenav';
 import Header from './Header';
@@ -19,7 +18,6 @@ import DeviceToggleButton from './DeviceToggleButton';
 export {
   PrivateRoute,
   Loading,
-  LoginButton,
   LogoutButton,
   Auth0ProviderWithHistory,
   SideNav,

@@ -1,7 +1,7 @@
 import React from "react";
 import { HttpMethods } from '../types';
 
-function ProtocolInputs({ device, setDevice, register }) {
+function ProtocolInputs({ device, setDevice, register }: any) {
   switch (device.protocol) {
     case 'mqtt':
       return (
@@ -35,7 +35,6 @@ function ProtocolInputs({ device, setDevice, register }) {
             <label className="text-gray-600">HTTP Method</label>
             <select 
                 className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none" 
-                type="text"
                 defaultValue={device.http_method}
                 name="http_method" 
                 ref={register()}

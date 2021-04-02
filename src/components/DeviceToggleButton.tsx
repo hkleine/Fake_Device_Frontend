@@ -3,7 +3,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 import axios from 'axios';
 import Toggle from 'react-toggle';
 
-const DeviceToggleButton = ({device, setDevice}) => {
+const DeviceToggleButton = ({device, setDevice}: any) => {
     const { getAccessTokenSilently } = useAuth0();
 
     async function toggleDevice() {

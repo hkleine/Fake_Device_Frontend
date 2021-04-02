@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export default async function getDevice(deviceId, accessToken) {
+export async function getDevice(deviceId: string, accessToken: string) {
     const response = await axios({
       method: 'get',
       url: `${process.env.REACT_APP_API}/api/device/${deviceId}/`,

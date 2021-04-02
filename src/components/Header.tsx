@@ -2,7 +2,7 @@ import React from "react";
 import Searchbar from "./Searchbar"
 
 
-const Header = ({user}) => {
+const Header = ({user}: any) => {
     return (
       <header className="flex w-full justify-between items-center py-8 pr-20 pl-12 bg-gray-200 bg-opacity-75">
         <Searchbar />

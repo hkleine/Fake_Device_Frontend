@@ -1,7 +1,7 @@
 import axios from 'axios';
+import { Device } from '../types';
 
-
-export default async function updateDevice(newDevice, accessToken) {
+export async function updateDevice(newDevice: Device, accessToken: string) {
     if(newDevice.interval) newDevice.interval = `PT${newDevice.interval}S`;
       const response = await axios({
         method: 'patch',

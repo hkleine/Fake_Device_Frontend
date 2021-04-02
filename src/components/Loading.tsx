@@ -2,7 +2,7 @@ import React from "react";
 import { ClimbingBoxLoader } from "react-spinners";
 import { DashboardLayout } from "../layouts";
 
-const Loading = ({isLoading}) => (
+const Loading = ({isLoading}: any) => (
   <div>
   <DashboardLayout>
     <div className="flex flex-col">

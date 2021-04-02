@@ -2,12 +2,12 @@ import React from 'react';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 
-function Alert(props) {
+function Alert(props: any) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
-export default function SnackbarComponent({open, setOpen, severity, children}) {
-  const handleClose = (event, reason) => {
+export default function SnackbarComponent({open, setOpen, severity, children}: any) {
+  const handleClose = (_event: any, reason: string) => {
     if (reason === 'clickaway') {
       return;
     }
