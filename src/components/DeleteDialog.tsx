@@ -1,15 +1,27 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import { SnackbarContext } from '../context';
+import { Severity } from '../types';
 
 export default function DeleteDialog({open, setOpen, deleteDevice}: any) {
+  const openSnackbar = useContext(SnackbarContext)
+
   const handleClose = () => {
     setOpen(false);
   };
 
   const handleDelete = async () => {
-    await deleteDevice()
+    try {
+      await deleteDevice()
+      handleClose()
+      openSnackbar({open: true, severity: Severity.SUCCESS, text: 'successfully deleted device'});
+    } catch (error) {
+      handleClose()
+      openSnackbar({open: true, severity: Severity.ERROR, text: 'failed to delete device'});
+    }
+
   } 
 
   return (

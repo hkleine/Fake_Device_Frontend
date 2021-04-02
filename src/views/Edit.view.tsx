@@ -1,14 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { DashboardLayout } from '../layouts';
 import { useAuth0 } from '@auth0/auth0-react';
-import { DeviceToggleButton, Loading, ProtocolInputs, SnackbarComponent } from '../components';
+import { DeviceToggleButton, Loading, ProtocolInputs } from '../components';
 import { useForm } from 'react-hook-form';
 import moment from 'moment';
 import 'jsoneditor-react/es/editor.min.css';
 import { NavLink } from 'react-router-dom';
-import { Protocols } from '../types';
+import { Protocols, Severity } from '../types';
 import { updateDevice, getDevice, getLogs } from '../api';
-import { SocketContext } from '../context/SocketContext';
+import { SocketContext, SnackbarContext } from '../context';
 import { Device, Log } from "../types";
 
 export function EditView({ match }: any) {
@@ -17,11 +17,9 @@ export function EditView({ match }: any) {
   const [isLoading, setLoading] = useState(true);
   const [device, setDevice] = useState<Device | null>(null);
   const [logs, setLogs] = useState<Log[]>();
-  const [openSuccess, setOpenSuccess] = React.useState(false);
-  const [openError, setOpenError] = React.useState(false);
-  const [errorText, setErrorText] = React.useState("");
   const { handleSubmit, register, errors, setValue } = useForm();
   const socket = useContext(SocketContext)
+  const openSnackbar = useContext(SnackbarContext)
 
   const onSubmit = async (data:Device) => {
     setLoading(true);
@@ -30,10 +28,9 @@ export function EditView({ match }: any) {
       setDevice(newDevice.data);
       setValue('data', newDevice.data.data);
       setLoading(false);
-      setOpenSuccess(true);
+      openSnackbar({open: true, severity: Severity.SUCCESS, text: 'successfully updated device'});
     } catch (error) {
-      setErrorText(error.message);
-      setOpenError(true);
+      openSnackbar({open: true, severity: Severity.ERROR, text: 'could not update device'});
       setLoading(false);
     }
 
@@ -189,12 +186,6 @@ export function EditView({ match }: any) {
           </div>
           </div>
         </div>
-        <SnackbarComponent open={openSuccess} setOpen={setOpenSuccess} severity={'success'}>
-          Successfully updated Device
-        </SnackbarComponent>
-        <SnackbarComponent open={openError} setOpen={setOpenError} severity={'error'}>
-          { errorText }
-        </SnackbarComponent>
       </DashboardLayout>
     </div>
     : null

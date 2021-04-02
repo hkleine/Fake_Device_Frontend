@@ -92,11 +92,9 @@ export const StepForm = () => {
   const [activeStep, setActiveStep] = useState(0)
   const [formValues, setFormValues] = useState(defaultDevice)
   const [formErrors, setFormErrors] = useState({})
-  const [hasCreationSucceeded, setHasDeviceCrationSucceeded] = useState(false);
 
   // Proceed to next step
-  const handleNext = (hasCreationSucceeded: boolean) => {
-    setHasDeviceCrationSucceeded(hasCreationSucceeded);
+  const handleNext = () => {
     setActiveStep(prev => prev + 1)
   }
   // Go back to prev step
@@ -142,7 +140,6 @@ export const StepForm = () => {
       return (
           <Redirect to={{
             pathname: "/",
-            state: { deviceCreationSucceeded: hasCreationSucceeded }
           }}/>
       )
       default:

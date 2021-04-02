@@ -1,10 +1,12 @@
-import React, { Fragment } from "react"
+import React, { Fragment, useContext } from "react"
 import Button from "@material-ui/core/Button"
 import { TextField } from "@material-ui/core"
 import { useAuth0 } from '@auth0/auth0-react';
 import { omitBy, isEmpty } from 'lodash';
 import {createDevice} from '../../api'
 import { SubmitButton } from '..'
+import { SnackbarContext } from "../../context";
+import { Severity } from "../../types";
 
 
 // Destructuring props
@@ -13,6 +15,7 @@ const ThirdStep = ({ handleNext, handleBack, handleChange, values }: any) => {
   // Check if all values are not empty or if there are some error
   const isValid = name.length > 0;
   const { getAccessTokenSilently } = useAuth0();
+  const openSnackbar = useContext(SnackbarContext)
 
   const handleSubmit = async () => {
     // Do whatever with the values
@@ -22,10 +25,12 @@ const ThirdStep = ({ handleNext, handleBack, handleChange, values }: any) => {
     });
     try {
       await createDevice(values, accessToken);
-      handleNext(true);
+      handleNext();
+      openSnackbar({open: true, severity: Severity.SUCCESS, text: 'successfully created device'});
     } catch (e) {
       console.log(e.message);
-      handleNext(false);
+      handleNext();
+      openSnackbar({open: true, severity: Severity.ERROR, text: 'an error occured during device creation'});
     }
   }
 

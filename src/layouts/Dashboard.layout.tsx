@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import {SideNav, Header, DashboardContent} from "../components";
 
 export const DashboardLayout = ({children}: any) => {
+
   return (
     <div>
       <div className="flex flex-row h-screen overflow-y-hidden overflow-x-hidden">

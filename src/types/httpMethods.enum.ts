@@ -1,5 +1,5 @@
-export const HttpMethods = {
-	PUT: "PUT",
-	POST: "POST",
-	PATCH: "PATCH",
+export enum HttpMethods {
+	PUT = "PUT",
+	POST = "POST",
+	PATCH = "PATCH",
 }
