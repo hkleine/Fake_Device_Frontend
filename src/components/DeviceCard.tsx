@@ -10,19 +10,19 @@ import { useAuth0 } from "@auth0/auth0-react";
 import moment, { Duration } from 'moment';
 
 
-function SensorCard({sensorIn, updateSensors}: any) {
+function DeviceCard({deviceIn, updateDevice}: any) {
     const { getAccessTokenSilently } = useAuth0();
-    const [sensor, setSensor] = useState(sensorIn);
+    const [device, setDevice] = useState(deviceIn);
     const [open, setOpen] = useState(false);
-    const editUrl = `/edit/${sensorIn._id}`;
+    const editUrl = `/edit/${deviceIn._id}`;
 
-    async function deleteSensor() {
+    async function deleteDevice() {
         const accessToken = await getAccessTokenSilently({
             audience: process.env.REACT_APP_AUTH0_AUDIENCE,
         });
-        axios({ method: 'delete', url: `${process.env.REACT_APP_API}/api/device/${sensor._id}`, headers: {Authorization: `Bearer ${accessToken}`,} })
+        axios({ method: 'delete', url: `${process.env.REACT_APP_API}/api/device/${device._id}`, headers: {Authorization: `Bearer ${accessToken}`,} })
         .then(() => {
-            updateSensors(sensor);
+            updateDevice(device);
         });
     }
 
@@ -36,11 +36,11 @@ function SensorCard({sensorIn, updateSensors}: any) {
 
   return (
     <div className="max-w-sm rounded-lg overflow-hidden shadow-sm bg-white p-4">
-        <DeleteDialog open={open} setOpen={setOpen} deleteSensor={deleteSensor} />
+        <DeleteDialog open={open} setOpen={setOpen} deleteDevice={deleteDevice} />
 
         <div className="flex flex-col">
             <div className="flex flex-row justify-between">
-                <h3 className="text-gray-700 text-lg">{sensor.name}</h3>
+                <h3 className="text-gray-700 text-lg">{device.name}</h3>
                 <div className="flex flex-row">
                     <NavLink className="outline-none pr-2" to={editUrl}>
                         <IconContext.Provider value={{ style: { fontSize: '20px' } }}>
@@ -58,31 +58,31 @@ function SensorCard({sensorIn, updateSensors}: any) {
                     </button>
                 </div>
             </div>
-            {sensor.protocol === 'http' &&
+            {device.protocol === 'http' &&
                 <div className="flex flex-row justify-between py-4">
-                    <span className="text-gray-600 text-sm">{sensor.http_host}</span>
+                    <span className="text-gray-600 text-sm">{device.http_host}</span>
                     <div className="flex justify-center items-center py-2 px-4 rounded-full text-white bg-primary shadow-md">
-                        <div className="text-xs font-normal leading-none max-w-full flex-initial">{sensor.protocol}</div>
+                        <div className="text-xs font-normal leading-none max-w-full flex-initial">{device.protocol}</div>
                     </div>
                 </div>
             }
-            {sensor.protocol === 'mqtt' &&
+            {device.protocol === 'mqtt' &&
                 <div className="flex flex-row justify-between py-4">
-                    <span className="text-gray-600 text-sm">{sensor.mqtt_topic}</span>
+                    <span className="text-gray-600 text-sm">{device.mqtt_topic}</span>
                     <div className="flex justify-center items-center py-2 px-4 rounded-full text-white bg-indigo-500 shadow-md">
-                        <div className="text-xs font-normal leading-none max-w-full flex-initial">{sensor.protocol}</div>
+                        <div className="text-xs font-normal leading-none max-w-full flex-initial">{device.protocol}</div>
                     </div>
                 </div>
             }
             <div className="flex flex-row items-center">
-                <DeviceToggleButton device={sensor} setDevice={setSensor} />
+                <DeviceToggleButton device={device} setDevice={setDevice} />
                 <div className="flex flex-row items-center pb-2 pl-4">
                     <IconContext.Provider value={{ style: { fontSize: '15px' } }}>
                         <div className="text-gray-600">
                             <HiOutlineClock />
                         </div>
                     </IconContext.Provider>
-                    <span className="text-gray-600 text-sm">{parseInterval(sensor.interval)}</span>
+                    <span className="text-gray-600 text-sm">{parseInterval(device.interval)}</span>
                 </div>
             </div>
         </div>
@@ -90,4 +90,4 @@ function SensorCard({sensorIn, updateSensors}: any) {
   );
 };
 
-export default SensorCard;
+export default DeviceCard;

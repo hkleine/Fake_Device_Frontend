@@ -5,8 +5,7 @@ import LogoutButton from './LogoutButton';
 import SideNav from './Sidenav';
 import Header from './Header';
 import DashboardContent from './DashboardContent';
-import SensorGrid from './SensorGrid';
-import SensorCard from './SensorCard';
+import DeviceCard from './DeviceCard';
 import Searchbar from './Searchbar';
 import AddDeviceButton from './AddDeviceButton';
 import ProtocolInputs from './ProtocolInputs';
@@ -15,6 +14,7 @@ import SnackbarComponent from './SnackbarComponent';
 import SubmitButton from './SubmitButton';
 import DeviceToggleButton from './DeviceToggleButton';
 
+export * from './DeviceGrid'
 export {
   PrivateRoute,
   Loading,
@@ -23,8 +23,7 @@ export {
   SideNav,
   Header,
   DashboardContent,
-  SensorGrid,
-  SensorCard,
+  DeviceCard,
   Searchbar,
   AddDeviceButton,
   ProtocolInputs,

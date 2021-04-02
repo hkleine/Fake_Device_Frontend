@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { RouteComponentProps } from 'react-router';
 import {DashboardLayout} from "../layouts";
-import { SensorGrid, Loading, SnackbarComponent } from '../components';
+import { DeviceGrid, Loading, SnackbarComponent } from '../components';
 import { useAuth0 } from "@auth0/auth0-react";
 import { List, remove } from 'lodash';
 import { getDevices } from '../api';
@@ -66,7 +66,7 @@ function Dashboard(props: RouteComponentProps) {
           <div className="flex flex-row justify-between">
             <h1 className="text-gray-700 text-2xl font-medium pb-12">Dashboard</h1>
           </div>
-          <SensorGrid sensors={devices} updateSensors={updatedevices} />
+          <DeviceGrid devices={devices} updateDevices={updatedevices} />
         </div>
       </DashboardLayout>
       <SnackbarComponent open={openSuccess} setOpen={setOpenSuccess} severity={'success'}>
