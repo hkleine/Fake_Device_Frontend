@@ -47,7 +47,7 @@ const fieldsValidation = {
   },
   http_method: {
     error: "",
-    validate: "text",
+    validate: "method",
     minLength: 2,
     maxLength: 20
   },
@@ -103,9 +103,9 @@ export const StepForm = () => {
   const handleBack = () => setActiveStep(prev => prev - 1)
 
   // Handle form change
-  const handleChange = (event: React.FormEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const { name, value } = event.currentTarget
-    console.log(name);
+  const handleChange = (event: any) => {
+    const { name, value } = event.target
+
     // Set values
     setFormValues(prev => ({
       ...prev,

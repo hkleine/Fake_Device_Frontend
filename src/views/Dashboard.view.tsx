@@ -66,7 +66,7 @@ export function Dashboard(props: RouteComponentProps) {
           <div className="flex flex-row justify-between">
             <h1 className="text-gray-700 text-2xl font-medium pb-12">Dashboard</h1>
           </div>
-          <DeviceGrid devices={devices} updateDevices={updatedevices} />
+          <DeviceGrid devices={devices} updateDevice={updatedevices} />
         </div>
       </DashboardLayout>
       <SnackbarComponent open={openSuccess} setOpen={setOpenSuccess} severity={'success'}>
