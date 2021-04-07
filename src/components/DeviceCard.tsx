@@ -1,10 +1,8 @@
 import React, { useContext, useState } from "react";
 import { NavLink } from 'react-router-dom';
-
 import { DeleteDialog, DeviceToggleButton } from './';
 import { HiOutlineCode, HiOutlineTrash, HiOutlineClock } from 'react-icons/hi';
 import { IconContext } from 'react-icons';
-import "react-toggle/style.css";
 import { useAuth0 } from "@auth0/auth0-react";
 import moment, { Duration } from 'moment';
 import { Device } from "../types";

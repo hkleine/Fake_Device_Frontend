@@ -27,7 +27,6 @@ export const DeviceToggleButton = ({device, setDevice}: any) => {
         } catch (error) {
             openSnackbar({open: true, severity: Severity.ERROR, text: 'failed to toggle device'});
         }
-
     }
 
     return (
@@ -38,6 +37,7 @@ export const DeviceToggleButton = ({device, setDevice}: any) => {
             onChange={handleToggleDevice}
             name="device toggle"
             color="primary"
+            className="w-24"
             />
         }
         label="sending"

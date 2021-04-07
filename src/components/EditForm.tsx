@@ -3,7 +3,7 @@ import { Device, Protocols, Severity } from "../types";
 import { updateDevice } from '../api';
 import { useContext, useState } from "react";
 import { SnackbarContext } from "../context";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Divider, FormControl, InputAdornment, InputLabel, MenuItem, Select, TextField } from "@material-ui/core";
 import { NavLink } from "react-router-dom";
@@ -16,7 +16,7 @@ export const EditForm = ({device, setDevice}: any) => {
     const { getAccessTokenSilently } = useAuth0();
     const openSnackbar = useContext(SnackbarContext)
     const [protocol, setProtocol] = useState<Protocols>(device.protocol);
-    const { handleSubmit, register } = useForm<Device>();
+    const { handleSubmit, register, control } = useForm<Device>();
 
     const getAccessToken = async () => {
         return await getAccessTokenSilently({
@@ -42,14 +42,28 @@ export const EditForm = ({device, setDevice}: any) => {
     
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
-          <DeviceToggleButton device={device} setDevice={setDevice} />
+          <DeviceToggleButton className="w-24" device={device} setDevice={setDevice} />
           <div className="flex flex-row my-8">
             <div className="mr-12 w-3/6">
             <h2 className="text-gray-700 mb-4 text-xl font-medium">Device Settings</h2>
             <div className="grid grid-cols-1 gap-8">
-              <FormControl>
-                <TextField label="Name" defaultValue={device.name} {...register("name")}/>
-              </FormControl>
+              <Controller
+                control={control}
+                name="name"
+                render={({
+                  field: { onChange, onBlur, value, name, ref },
+                  fieldState: { invalid, isTouched, isDirty, error },
+                  formState,
+                }) => (
+                  <TextField
+                    onBlur={onBlur}
+                    onChange={onChange}
+                    inputRef={ref}
+                    defaultValue={device.name}
+                    label="Name" 
+                  />
+                )}
+              />
               <FormControl>
                 <InputLabel>Protocol</InputLabel>
                 <Select
@@ -61,28 +75,40 @@ export const EditForm = ({device, setDevice}: any) => {
                 >
                   <MenuItem value={Protocols.HTTP}>HTTP</MenuItem>
                   <MenuItem value={Protocols.MQTT}>MQTT</MenuItem>
-                </Select>
+              </Select>
               </FormControl>
-              <TextField 
-                InputProps={{
-                  inputProps: { 
-                    max: 60000, min: 20 
-                  },
-                  type: "number",
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <IconContext.Provider value={{ style: { fontSize: '20px' } }}>
-                          <div className="text-gray-600">
-                              <HiOutlineClock />
-                          </div>
-                      </IconContext.Provider>
-                    </InputAdornment>
-                  ),
-                  endAdornment: (<InputAdornment position="end">sec</InputAdornment>)
-                }}
-                label="Interval" 
-                defaultValue={intervalAsSeconds(device.interval)} 
-                {...register("interval")}
+              <Controller
+                control={control}
+                name="interval"
+                render={({
+                  field: { onChange, onBlur, value, name, ref },
+                  fieldState: { invalid, isTouched, isDirty, error },
+                  formState,
+                }) => (
+                  <TextField 
+                  InputProps={{
+                    inputProps: { 
+                      max: 60000, min: 20 
+                    },
+                    type: "number",
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <IconContext.Provider value={{ style: { fontSize: '20px' } }}>
+                            <div className="text-gray-600">
+                                <HiOutlineClock />
+                            </div>
+                        </IconContext.Provider>
+                      </InputAdornment>
+                    ),
+                    endAdornment: (<InputAdornment position="end">sec</InputAdornment>)
+                  }}
+                  label="Interval" 
+                  defaultValue={intervalAsSeconds(device.interval)} 
+                  onBlur={onBlur}
+                  onChange={onChange}
+                  inputRef={ref}
+                />
+                )}
               />
             </div>
             </div>
