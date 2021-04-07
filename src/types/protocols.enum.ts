@@ -1,5 +1,5 @@
-export const Protocols = {
-	HTTP: "http",
-	MQTT: "mqtt",
-	ZIGBEE: "zigbee",
+export enum Protocols {
+	HTTP = "http",
+	MQTT = "mqtt",
+	ZIGBEE = "zigbee",
 }

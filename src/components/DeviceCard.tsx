@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { NavLink } from 'react-router-dom';
 
-import { DeleteDialog, DeviceToggleButton } from '.';
+import { DeleteDialog, DeviceToggleButton } from './';
 import { HiOutlineCode, HiOutlineTrash, HiOutlineClock } from 'react-icons/hi';
 import { IconContext } from 'react-icons';
 import "react-toggle/style.css";
@@ -13,7 +13,7 @@ import { List, remove } from "lodash";
 import { deleteDevice } from '../api'
 
 
-function DeviceCard({deviceIn}: any) {
+export function DeviceCard({deviceIn}: any) {
     const { getAccessTokenSilently } = useAuth0();
     const [device, setDevice] = useState(deviceIn);
     const [open, setOpen] = useState(false);
@@ -94,5 +94,3 @@ function DeviceCard({deviceIn}: any) {
     </div>
   );
 };
-
-export default DeviceCard;

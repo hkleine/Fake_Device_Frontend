@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { RouteComponentProps } from 'react-router';
 import {DashboardLayout} from "../layouts";
-import { DeviceGrid, Loading } from '../components';
+import { DeviceGrid, Loading, MenuHeading } from '../components';
 import { useAuth0 } from "@auth0/auth0-react";
 import { getDevices } from '../api';
 import { Device } from '../types';
@@ -11,19 +11,6 @@ export function Dashboard(props: RouteComponentProps) {
   const [isLoading, setLoading] = useState(true);
   const { getAccessTokenSilently } = useAuth0();
   const [devices, setDevices] = useState<Device[]>();
-  //const [isSnackbarOpen, setIsSnackbarOpen] = React.useState(false);
-
-  //const [openError, setOpenError] = React.useState(false);
-
-  // function setSnackbarOpen() {
-  //   if(props.location.state && props.location.state.deviceCreationSucceeded) {
-  //     setOpenSuccess(true);
-  //     window.history.replaceState(null, '');
-  //   } else if (props.location.state && props.location.state.deviceCreationSucceeded === false) {
-  //     setOpenError(true);
-  //     window.history.replaceState(null, '');
-  //   }
-  // }
 
   useEffect(() => {
     const fetchDevices = async () => {
@@ -42,7 +29,7 @@ export function Dashboard(props: RouteComponentProps) {
     }
 
     fetchDevices();
-  });
+  }, [getAccessTokenSilently]);
 
   if (isLoading) {
     return (
@@ -54,20 +41,12 @@ export function Dashboard(props: RouteComponentProps) {
     <div>
       <DashboardLayout>
         <div className="flex flex-col">
-          <div className="flex flex-row justify-between">
-            <h1 className="text-gray-700 text-2xl font-medium pb-12">Dashboard</h1>
-          </div>
+          <MenuHeading>Dashboard</MenuHeading>
           <DevicesProvider value={{devices: devices, setCurrentDevices: setDevices}}>
             <DeviceGrid  />
           </DevicesProvider>
         </div>
       </DashboardLayout>
-      {/* <SnackbarComponent open={openSuccess} setOpen={setOpenSuccess} severity={'success'}>
-        Successfully created Device
-      </SnackbarComponent>
-      <SnackbarComponent open={openError} setOpen={setOpenError} severity={'error'}>
-        Failed to create Device
-      </SnackbarComponent> */}
   </div>
   );
 }

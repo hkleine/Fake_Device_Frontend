@@ -6,7 +6,7 @@ function Alert(props: any) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
-export default function SnackbarComponent({open, setOpen, severity, children}: any) {
+export function SnackbarComponent({open, setOpen, severity, children}: any) {
   const handleClose = (_event: any, reason: string) => {
     if (reason === 'clickaway') {
       return;

@@ -1,65 +1,50 @@
+import { FormControl, InputLabel, MenuItem, Select, TextField } from "@material-ui/core";
 import React from "react";
 import { HttpMethods } from '../types';
 
-function ProtocolInputs({ device, setDevice, register }: any) {
-  switch (device.protocol) {
+export function ProtocolInputs({ device, protocol, register }: any) {
+  
+  switch (protocol) {
     case 'mqtt':
       return (
-        <div>
-          <div className="flex flex-col pb-12 max-w-lg">
-            <label className="text-gray-600">MQTT Host</label>
-            <input className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none" defaultValue={device.mqtt_host} type="text" name="mqtt_host" ref={register()} />
-          </div>
-          
-          <div className="flex flex-col pb-12 max-w-lg">
-            <label className="text-gray-600">MQTT Topic</label>
-            <input className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none" defaultValue={device.mqtt_topic} type="text" name="mqtt_topic" ref={register()} />
-          </div>
-
-          <div className="flex flex-row pb-12 max-w-lg">
-            <div className="flex flex-col w-1/2">
-              <label className="text-gray-600">MQTT Username</label>
-              <input className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none" defaultValue={device.mqtt_username} type="text" name="mqtt_username" ref={register()} />
-            </div>
-            <div className="flex flex-col w-1/2">
-              <label className="text-gray-600">MQTT Password</label>
-              <input className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none" defaultValue={device.mqtt_password} type="password" name="mqtt_password" ref={register()} />
-            </div>
+        <div className="ml-12 w-3/6">
+          <h2 className="text-gray-700 mb-4 text-xl font-medium col-span-2">Protocol Details</h2>
+          <div className="grid grid-cols-2 gap-8">
+            <TextField className="col-span-2" label="MQTT Host"  defaultValue={device.mqtt_host} {...register("mqtt_host")}/>
+            <TextField className="col-span-2" label="MQTT Topic"  defaultValue={device.mqtt_topic} {...register("mqtt_topic")}/>
+            <TextField label="MQTT Username"  defaultValue={device.mqtt_username} {...register("mqtt_username")}/>
+            <TextField label="MQTT Password" type="password"  autocomplete="on" defaultValue={device.mqtt_password} {...register("mqtt_password")}/>
           </div>
         </div>
+
       );
     case 'http':
       return (
-        <div>
-          <div className="flex flex-col max-w-lg pb-12">
-            <label className="text-gray-600">HTTP Method</label>
-            <select 
-                className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none" 
+        <div className="ml-12 w-3/6">
+          <h2 className="text-gray-700 mb-4 text-xl font-medium">Protocol Details</h2>
+          <div className="grid grid-cols-1 gap-8">
+            <TextField label="HTTP Host" defaultValue={device.http_host} {...register("http_host")}/>
+
+            <FormControl >
+              <InputLabel>HTTP Method</InputLabel>
+              <Select
+                labelId="demo-simple-select-placeholder-label-label"
+                id="demo-simple-select-placeholder-label"
                 defaultValue={device.http_method}
-                name="http_method" 
-                ref={register()}
-                onChange={(e) => {
-                  device.http_method = e.currentTarget.value;
-                  setDevice({...device});
-                }}
+                {...register("http_method")}
               >
-                <option value={HttpMethods.POST}>POST</option>
-                <option value={HttpMethods.PUT}>PUT</option>
-                <option value={HttpMethods.PATCH}>PATCH</option>
-              </select>
-            </div>
+                <MenuItem value={HttpMethods.POST}>POST</MenuItem>
+                <MenuItem value={HttpMethods.PUT}>PUT</MenuItem>
+                <MenuItem value={HttpMethods.PATCH}>PATCH</MenuItem>
+              </Select>
+            </FormControl>
 
-
-          <div className="flex flex-col pb-12 max-w-lg">
-              <label className="text-gray-600">HTTP Host</label>
-              <input className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none" defaultValue={device.http_host} type="text" name="http_host" ref={register()} />
+            <TextField label="HTTP Auth Header"  defaultValue={""}/>
           </div>
-          
         </div>
+
       );
     default:
       return null;
   }
 }
-
-export default ProtocolInputs;

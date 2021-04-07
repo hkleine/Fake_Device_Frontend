@@ -1,9 +1,8 @@
-import React from "react";
 import { HiOutlineSearch } from 'react-icons/hi';
 import { IconContext } from 'react-icons';
 
 
-const Searchbar = () => {
+export const Searchbar = () => {
   return (
         <div className="bg-white flex items-center rounded-full shadow-sm">
             <input className="rounded-l-full w-64 px-6 text-gray-700 leading-tight focus:outline-none" id="search" type="text" placeholder="Search" />
@@ -19,5 +18,3 @@ const Searchbar = () => {
         </div>
    )
 };
-
-export default Searchbar;

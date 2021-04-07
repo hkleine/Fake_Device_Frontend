@@ -1,4 +1,5 @@
 import React from "react";
+import { MenuHeading } from "../components";
 import {DashboardLayout} from "../layouts"
 
 export function StatisticView() {
@@ -6,10 +7,7 @@ export function StatisticView() {
     <div>
       <DashboardLayout>
         <div className="flex flex-col">
-          <div className="flex flex-row justify-between">
-            <h1 className="">Statistics</h1>
-            <span>Moin</span>
-          </div>
+        <MenuHeading>Statistics</MenuHeading>
         </div>
       </DashboardLayout>
     </div>

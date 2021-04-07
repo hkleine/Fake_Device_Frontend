@@ -8,5 +8,5 @@ export async function getDevice(deviceId: string, accessToken: string) {
         Authorization: `Bearer ${accessToken}`,
       },
     });
-    return response
+    return response.data;
 };

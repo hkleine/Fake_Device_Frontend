@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction } from 'react'
+import React, { Dispatch } from 'react'
 import { Device } from '../types';
 
 export interface IDevicesContext {

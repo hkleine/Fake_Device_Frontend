@@ -5,7 +5,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import { SnackbarContext } from '../context';
 import { Severity } from '../types';
 
-export default function DeleteDialog({open, setOpen, deleteDevice}: any) {
+export function DeleteDialog({open, setOpen, deleteDevice}: any) {
   const openSnackbar = useContext(SnackbarContext)
 
   const handleClose = () => {

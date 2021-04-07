@@ -1,30 +1,39 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
-import axios from 'axios';
 import Toggle from 'react-toggle';
+import { toggleDevice } from '../api'
+import { SnackbarContext } from "../context";
+import { Severity } from '../types';
 
-const DeviceToggleButton = ({device, setDevice}: any) => {
+
+export const DeviceToggleButton = ({device, setDevice}: any) => {
     const { getAccessTokenSilently } = useAuth0();
+    const openSnackbar = useContext(SnackbarContext)
 
-    async function toggleDevice() {
+    async function handleToggleDevice() {
         const accessToken = await getAccessTokenSilently({
             audience: process.env.REACT_APP_AUTH0_AUDIENCE,
         });
-        axios({ method: 'get', url: `${process.env.REACT_APP_API}/api/device/${device._id}/toggle`, headers: {Authorization: `Bearer ${accessToken}`,} })
-        .then(response => {
+        try {
+            const response = await toggleDevice(device._id, accessToken)
             setDevice(response.data);
-        });
+            if(response.data.is_running) {
+                openSnackbar({open: true, severity: Severity.INFO, text: 'started device'});
+            } else {
+                openSnackbar({open: true, severity: Severity.INFO, text: 'stopped device'});
+            }
+        } catch (error) {
+            openSnackbar({open: true, severity: Severity.ERROR, text: 'failed to toggle device'});
+        }
+
     }
 
     return (
-        <label>
-            <Toggle
-                className="toggle"
-                onChange={toggleDevice}
-                defaultChecked={device.is_running}
-                icons={false} />
-        </label>
+        <Toggle
+            className="toggle w-8"
+            onChange={handleToggleDevice}
+            defaultChecked={device.is_running}
+            icons={false}
+        />
     );
 };
-
-export default DeviceToggleButton;

@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useState } from 'react'
+import React, { Dispatch, useState } from 'react'
 import { SnackbarComponent } from '../components';
 import { Severity } from '../types';
 

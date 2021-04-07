@@ -3,11 +3,9 @@ import { Route } from "react-router-dom";
 import { withAuthenticationRequired } from "@auth0/auth0-react";
 
 
-const PrivateRoute = ({ component, ...args }: any) => (
+export const PrivateRoute = ({ component, ...args }: any) => (
   <Route
     component={withAuthenticationRequired(component, {})}
     {...args}
   />
 );
-
-export default PrivateRoute;

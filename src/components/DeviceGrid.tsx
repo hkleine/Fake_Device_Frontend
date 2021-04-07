@@ -1,9 +1,8 @@
-import React, { useContext } from "react";
-import DeviceCard from './DeviceCard'
-
-import AddDeviceButton from './AddDeviceButton';
 import { Device } from "../types";
 import { DevicesContext } from "../context";
+import { AddDeviceButton } from "./AddDeviceButton";
+import {DeviceCard} from './DeviceCard';
+import { useContext } from "react";
 
 export const DeviceGrid = () => {
   const {devices} = useContext(DevicesContext)

@@ -2,10 +2,10 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { HiOutlineViewGrid, HiOutlineBell, HiOutlineChartBar, HiOutlineUser } from 'react-icons/hi';
 import { IconContext } from 'react-icons';
-import LogoutButton from './LogoutButton';
-import Logo from './Logo';
+import { Logo } from './Logo';
+import { LogoutButton } from './LogoutButton';
 
-const SideNav = () => (
+export const SideNav = () => (
   <div className="z-30 inset-y-0 left-0 h-screen transition duration-300 transform bg-white lg:translate-x-0 lg:static lg:inset-0">
     <Logo />
     <nav className="mt-24 md:px-12">
@@ -64,5 +64,3 @@ const SideNav = () => (
     </nav>
   </div>
 );
-
-export default SideNav;

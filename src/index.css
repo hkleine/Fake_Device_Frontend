@@ -1,3 +1,6 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 body {
   height: 100vh;
   margin: 0;
@@ -43,16 +46,15 @@ code {
 .color-primary {
   color: #5D40B8;
 }
-
-.react-toggle--checked .react-toggle-track {
+.toggle.react-toggle--checked .react-toggle-track {
   background-color: #5D40B8;
 }
 
-.react-toggle--checked:hover:not(.react-toggle--disabled) .react-toggle-track {
+.toggle.react-toggle--checked:hover:not(.react-toggle--disabled) .react-toggle-track {
   background-color: #5D40B8;
 }
 
-.react-toggle--checked .react-toggle-thumb {
+.toggle.react-toggle--checked .react-toggle-thumb {
   left: 27px;
   border-color: #745eba;
 }
@@ -100,5 +102,18 @@ code {
 }
 
 .logs-container {
-  height: 500px;
+  height: 350px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  padding: 1rem;
+  border: 1px solid #fff;
+}
+
+pre {
+  padding: 1rem;
+  border: 1px solid #fff;
+  border-radius: 4px;
+}
+
+.edit-container {
+  width: 800px;
 }

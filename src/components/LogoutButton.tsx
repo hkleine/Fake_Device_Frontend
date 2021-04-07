@@ -3,7 +3,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { HiOutlineLogout } from 'react-icons/hi'
 import { IconContext } from 'react-icons';
 
-const LogoutButton = () => {
+export const LogoutButton = () => {
   const { logout } = useAuth0();
   return (
     <button
@@ -23,5 +23,3 @@ const LogoutButton = () => {
     </button>
   );
 };
-
-export default LogoutButton;

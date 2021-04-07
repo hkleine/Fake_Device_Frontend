@@ -1,3 +1,7 @@
+import { HttpMethods } from "./httpMethods.enum";
+import { Protocols } from "./protocols.enum";
+
+
 export type Device = {
     _id: string;
     name: string;

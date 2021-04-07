@@ -1,4 +1,5 @@
 import React from "react";
+import { MenuHeading } from "../components";
 import {DashboardLayout} from "../layouts"
 
 export function AlertView() {
@@ -6,10 +7,7 @@ export function AlertView() {
     <div>
       <DashboardLayout>
         <div className="flex flex-col">
-          <div className="flex flex-row justify-between">
-            <h1 className="">Alerts</h1>
-            <span>Moin</span>
-          </div>
+        <MenuHeading>Alerts</MenuHeading>
         </div>
       </DashboardLayout>
     </div>

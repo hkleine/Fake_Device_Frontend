@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { HiOutlinePlus } from 'react-icons/hi';
 import { IconContext } from 'react-icons';
 
-const AddDeviceButton = () => {
+export const AddDeviceButton = () => {
   return (
     <NavLink
       to="/add"
@@ -18,5 +18,3 @@ const AddDeviceButton = () => {
     </NavLink>
   );
 };
-
-export default AddDeviceButton;
