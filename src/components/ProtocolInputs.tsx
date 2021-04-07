@@ -1,8 +1,16 @@
-import { FormControl, InputLabel, MenuItem, Select, TextField } from "@material-ui/core";
-import React from "react";
+import { FormControl, IconButton, InputAdornment, InputLabel, MenuItem, Select, TextField } from "@material-ui/core";
+import { useState } from "react";
+import { HiEye, HiEyeOff } from "react-icons/hi";
+import { IconContext } from "react-icons/lib";
 import { HttpMethods } from '../types';
 
+
 export function ProtocolInputs({ device, protocol, register }: any) {
+  const [showMqttPassword, setShowMqttPassword] = useState<boolean>(false)
+
+  const handleClickShowPassword = () => {
+    setShowMqttPassword(!showMqttPassword);
+  };
   
   switch (protocol) {
     case 'mqtt':
@@ -13,7 +21,35 @@ export function ProtocolInputs({ device, protocol, register }: any) {
             <TextField className="col-span-2" label="MQTT Host"  defaultValue={device.mqtt_host} {...register("mqtt_host")}/>
             <TextField className="col-span-2" label="MQTT Topic"  defaultValue={device.mqtt_topic} {...register("mqtt_topic")}/>
             <TextField label="MQTT Username"  defaultValue={device.mqtt_username} {...register("mqtt_username")}/>
-            <TextField label="MQTT Password" type="password"  autocomplete="on" defaultValue={device.mqtt_password} {...register("mqtt_password")}/>
+            <TextField 
+              label="MQTT Password" 
+              type={showMqttPassword ? 'text' : 'password'}
+              autoComplete 
+              defaultValue={device.mqtt_password} 
+              {...register("mqtt_password")}
+              InputProps={{
+                endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                  >
+                    {showMqttPassword ? 
+                      <IconContext.Provider value={{ style: { fontSize: '20px' } }}>
+                        <div className="text-gray-600">
+                            <HiEye />
+                        </div>
+                      </IconContext.Provider> : 
+                      <IconContext.Provider value={{ style: { fontSize: '20px' } }}>
+                      <div className="text-gray-600">
+                          <HiEyeOff />
+                      </div>
+                    </IconContext.Provider>
+                    }
+                  </IconButton>
+                </InputAdornment>)
+              }}
+            />
           </div>
         </div>
 

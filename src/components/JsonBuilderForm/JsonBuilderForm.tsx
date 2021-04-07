@@ -8,7 +8,8 @@ export const JsonBuilderForm = ({device, setDevice}:any) => {
     const [data, setData] = useState(device.data || {});
 
     const addNewKeyValuePairs = () => {
-        const newData = {_: ""}
+        const newData:any = {}
+        newData[""] = ""
         setData({...data, ...newData})
     }
 

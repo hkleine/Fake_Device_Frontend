@@ -1,16 +1,18 @@
-import React, { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
-import Toggle from 'react-toggle';
 import { toggleDevice } from '../api'
 import { SnackbarContext } from "../context";
 import { Severity } from '../types';
+import { FormControlLabel, Switch } from '@material-ui/core';
 
 
 export const DeviceToggleButton = ({device, setDevice}: any) => {
+    const [checked, setChecked] = useState<boolean>(device.is_running)
     const { getAccessTokenSilently } = useAuth0();
     const openSnackbar = useContext(SnackbarContext)
 
     async function handleToggleDevice() {
+        setChecked(!checked)
         const accessToken = await getAccessTokenSilently({
             audience: process.env.REACT_APP_AUTH0_AUDIENCE,
         });
@@ -29,11 +31,16 @@ export const DeviceToggleButton = ({device, setDevice}: any) => {
     }
 
     return (
-        <Toggle
-            className="toggle w-8"
+        <FormControlLabel
+        control={
+          <Switch
+            checked={checked}
             onChange={handleToggleDevice}
-            defaultChecked={device.is_running}
-            icons={false}
+            name="device toggle"
+            color="primary"
+            />
+        }
+        label="sending"
         />
     );
 };

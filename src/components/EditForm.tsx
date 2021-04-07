@@ -5,10 +5,12 @@ import { useContext, useState } from "react";
 import { SnackbarContext } from "../context";
 import { useForm } from "react-hook-form";
 import { useAuth0 } from "@auth0/auth0-react";
-import { Divider, FormControl, InputLabel, MenuItem, Select, TextField } from "@material-ui/core";
+import { Divider, FormControl, InputAdornment, InputLabel, MenuItem, Select, TextField } from "@material-ui/core";
 import { NavLink } from "react-router-dom";
 import { DeviceToggleButton } from "./DeviceToggleButton";
 import { ProtocolInputs } from "./ProtocolInputs";
+import { IconContext } from "react-icons/lib";
+import { HiOutlineClock } from "react-icons/hi";
 
 export const EditForm = ({device, setDevice}: any) => {
     const { getAccessTokenSilently } = useAuth0();
@@ -39,33 +41,53 @@ export const EditForm = ({device, setDevice}: any) => {
 
     
     return (
-      
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
           <DeviceToggleButton device={device} setDevice={setDevice} />
           <div className="flex flex-row my-8">
             <div className="mr-12 w-3/6">
             <h2 className="text-gray-700 mb-4 text-xl font-medium">Device Settings</h2>
             <div className="grid grid-cols-1 gap-8">
-              <TextField label="Name" defaultValue={device.name} {...register("name")}/>
+              <FormControl>
+                <TextField label="Name" defaultValue={device.name} {...register("name")}/>
+              </FormControl>
               <FormControl>
                 <InputLabel>Protocol</InputLabel>
-                  <Select
-                    demo-simple-select-outlined-label
-                    defaultValue={device.protocol}
-                    {...register("protocol")}
-                    onChange={e => {
-                      setProtocol(e.target.value as Protocols)
-                    }}
-                  >
-                    <MenuItem value={Protocols.HTTP}>HTTP</MenuItem>
-                    <MenuItem value={Protocols.MQTT}>MQTT</MenuItem>
+                <Select
+                  defaultValue={device.protocol}
+                  {...register("protocol")}
+                  onChange={e => {
+                    setProtocol(e.target.value as Protocols)
+                  }}
+                >
+                  <MenuItem value={Protocols.HTTP}>HTTP</MenuItem>
+                  <MenuItem value={Protocols.MQTT}>MQTT</MenuItem>
                 </Select>
               </FormControl>
-              <TextField inputProps={{ type: 'number'}} label="Interval" defaultValue={intervalAsSeconds(device.interval)} {...register("interval")}/>
+              <TextField 
+                InputProps={{
+                  inputProps: { 
+                    max: 60000, min: 20 
+                  },
+                  type: "number",
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <IconContext.Provider value={{ style: { fontSize: '20px' } }}>
+                          <div className="text-gray-600">
+                              <HiOutlineClock />
+                          </div>
+                      </IconContext.Provider>
+                    </InputAdornment>
+                  ),
+                  endAdornment: (<InputAdornment position="end">sec</InputAdornment>)
+                }}
+                label="Interval" 
+                defaultValue={intervalAsSeconds(device.interval)} 
+                {...register("interval")}
+              />
             </div>
             </div>
 
-            <Divider  orientation="vertical" flexItem />
+            <Divider orientation="vertical" flexItem />
             <ProtocolInputs device={device} protocol={protocol} register={register} />
           </div>
           
@@ -75,7 +97,6 @@ export const EditForm = ({device, setDevice}: any) => {
           <NavLink
             to="/"
             className="bg-white mr-4 hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
-            type="submit"
           >
             cancel
           </NavLink>

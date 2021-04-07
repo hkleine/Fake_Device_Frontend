@@ -24,12 +24,12 @@ export const KeyValueInput = ({objKey, updateObjKey, deleteProperty, value, upda
             <TextField defaultValue={value} onChange={updateValue(objKey)} label="Value" variant="outlined" />
 
             <button className="outline-none pb-2" onClick={deleteProperty(objKey)}>
-                        <IconContext.Provider value={{ style: { fontSize: '20px' } }}>
-                            <div className="text-gray-600 hover:text-purple-700">
-                                <HiOutlineTrash />
-                            </div>
-                        </IconContext.Provider>
-                    </button>
+                <IconContext.Provider value={{ style: { fontSize: '20px' } }}>
+                    <div className="text-gray-600 hover:text-purple-700">
+                        <HiOutlineTrash />
+                    </div>
+                </IconContext.Provider>
+            </button>
         </Grid>  
     );
 }

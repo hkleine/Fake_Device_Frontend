@@ -81,13 +81,13 @@ export function DeviceCard({deviceIn}: any) {
             }
             <div className="flex flex-row items-center">
                 <DeviceToggleButton device={device} setDevice={setDevice} />
-                <div className="flex flex-row items-center pb-2 pl-4">
+                <div className="flex flex-row items-center">
                     <IconContext.Provider value={{ style: { fontSize: '15px' } }}>
                         <div className="text-gray-600">
                             <HiOutlineClock />
                         </div>
                     </IconContext.Provider>
-                    <span className="text-gray-600 text-sm">{parseInterval(device.interval)}</span>
+                    <span className="pl-1 text-gray-600 text-sm">{parseInterval(device.interval)}</span>
                 </div>
             </div>
         </div>
