@@ -1,7 +1,7 @@
 import moment from "moment";
 import { Device, Protocols, Severity } from "../../types";
 import { updateDevice } from '../../api';
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { SnackbarContext } from "../../context";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Divider, FormControl, InputAdornment, InputLabel, MenuItem, Select, TextField } from "@material-ui/core";
@@ -14,17 +14,12 @@ import { HiOutlineClock } from "react-icons/hi";
 export const EditForm = ({device, setDevice}: any) => {
     const { getAccessTokenSilently } = useAuth0();
     const [formValues, setFormValues] = useState<Partial<Device>>(device)
-    const [protocol, setProtocol] = useState<Protocols>()
-    console.log(device); 
-
     const openSnackbar = useContext(SnackbarContext)
 
     // Handle form change
     const handleChange = (event: any) => {
       const { name, value } = event.target
-      if(name === 'protocol') {
-        setProtocol(value as Protocols);
-      }
+
       // Set values
       setFormValues(prev => ({
         ...prev,
@@ -57,6 +52,10 @@ export const EditForm = ({device, setDevice}: any) => {
         }
     };
 
+    const parseDuration = (duration: string | undefined) => {
+      if(duration) return moment.duration(duration).asSeconds()
+    }
+
     
     return (
       formValues ?
@@ -70,7 +69,7 @@ export const EditForm = ({device, setDevice}: any) => {
             <TextField
               name="name"
               onChange={handleChange}
-              defaultValue={formValues.name}
+              value={formValues.name}
               label="Name" 
               className="col-span-2"
             />
@@ -79,7 +78,7 @@ export const EditForm = ({device, setDevice}: any) => {
               <InputLabel>Protocol</InputLabel>
               <Select
                 name="protocol"
-                defaultValue={formValues.protocol}
+                value={formValues.protocol ? formValues.protocol : Protocols.HTTP}
                 onChange={handleChange}
               >
                 <MenuItem value={Protocols.HTTP}>HTTP</MenuItem>
@@ -89,7 +88,7 @@ export const EditForm = ({device, setDevice}: any) => {
 
             <TextField 
               name="interval"
-              defaultValue={formValues.interval}
+              defaultValue={parseDuration(formValues.interval)}
               onChange={handleChange}
               InputProps={{
                 inputProps: { 

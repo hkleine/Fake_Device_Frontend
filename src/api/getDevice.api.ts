@@ -1,5 +1,4 @@
 import axios from 'axios';
-import moment from 'moment';
 
 export async function getDevice(deviceId: string, accessToken: string) {
     const response = await axios({
@@ -9,9 +8,6 @@ export async function getDevice(deviceId: string, accessToken: string) {
         Authorization: `Bearer ${accessToken}`,
       },
     });
-    if(response.data.interval) {
-      response.data.interval = moment.duration(response.data.interval).asSeconds();
-      console.log(response.data.interval);
-    }
+
     return response.data;
 };

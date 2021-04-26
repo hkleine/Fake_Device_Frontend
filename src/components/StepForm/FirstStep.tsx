@@ -13,11 +13,11 @@ const FirstStep = ({ handleNext, handleChange, values: { protocol } }: any) => {
           <span className="text-gray-700 text-sm pb-8">Which protocol should the virtual device comunicate on?</span>
           <div className="flex flex-row w-full justify-between">
             <label className="labl">
-                <input type="radio" aria-label="protocol" name="protocol" value={Protocols.HTTP} onChange={handleChange}/>
+                <input type="radio" aria-label="protocol" name="protocol" checked={protocol === Protocols.HTTP} value={Protocols.HTTP} onChange={handleChange}/>
                 <div className="max-w-sm rounded-lg overflow-hidden text-gray-700 text-xl font-medium shadow-lg bg-white p-8">HTTP</div>
             </label>
             <label className="labl">
-              <input type="radio" aria-label="protocol" name="protocol" value={Protocols.MQTT} onChange={handleChange}/>
+              <input type="radio" aria-label="protocol" name="protocol" checked={protocol === Protocols.MQTT} value={Protocols.MQTT} onChange={handleChange}/>
               <div className="max-w-sm rounded-lg overflow-hidden text-gray-700 text-xl font-medium shadow-lg bg-white p-8">MQTT</div>
             </label>
           </div>
