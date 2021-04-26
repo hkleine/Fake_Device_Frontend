@@ -7,7 +7,7 @@ export const AddDeviceButton = () => {
   return (
     <NavLink
       to="/add"
-      className="max-w-sm rounded-lg outline-none overflow-hidden text-gray-700 shadow-sm bg-white p-4 flex flex-col justify-center "
+      className="max-w-sm rounded-lg outline-none overflow-hidden shadow-sm bg-white p-4 flex flex-col justify-center hover:shadow-xl"
     >
       <IconContext.Provider value={{ style: { fontSize: '70px' } }}>
         <div className="m-auto">

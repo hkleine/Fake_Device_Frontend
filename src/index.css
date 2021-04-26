@@ -1,9 +1,35 @@
 @tailwind base;
+
+@layer base {
+  body {
+    @apply font-normal;
+  }
+  h1 {
+    @apply text-3xl;
+    @apply font-medium;
+  }
+  h2 {
+    @apply text-2xl;
+    @apply font-medium;
+  }
+  h3 {
+    @apply text-xl;
+    @apply font-medium;
+  }
+  span, a {
+    @apply text-lg;
+  }
+  p {
+    @apply text-base;
+    @apply font-normal;
+  }
+}
+
 @tailwind components;
 @tailwind utilities;
-@import "~@fontsource/metropolis/index.css";
 
 body {
+  color: #4B5563;
   height: 100vh;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',

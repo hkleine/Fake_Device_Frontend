@@ -7,7 +7,7 @@ export const Loading = ({isLoading}: any) => (
   <DashboardLayout>
     <div className="flex flex-col">
       <div className="flex flex-row justify-between">
-        <h1 className="text-gray-700 text-2xl font-medium">Dashboard</h1>
+        <h1 className="font-medium">Dashboard</h1>
       </div>
     </div>
     <div className="flex items-center align-center justify-center pt-24">              

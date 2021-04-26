@@ -73,7 +73,7 @@ export const JsonBuilderForm = ({device, setDevice}:any) => {
                     <SecondaryButton onClick={addNewKeyValuePairs}>
                         <div className="flex flex-row">
                             <IconContext.Provider value={{ style: { fontSize: '25px' } }}>
-                                <div className="m-auto">
+                                <div className="m-auto text-gray-700">
                                     <HiOutlinePlus />
                                 </div>
                             </IconContext.Provider>

@@ -16,7 +16,7 @@ export function ProtocolInputs({ formValues, handleChange }: any) {
     if(formValues.protocol === Protocols.MQTT) {
       return(
         <div>
-        <h2 className="text-gray-700 mb-4 text-xl font-medium col-span-2">Protocol Details</h2>
+        <h3 className="mb-4 col-span-2">Protocol Details</h3>
         <div className="grid grid-cols-2 gap-8">
           <TextField
             name="mqtt_host"
@@ -57,12 +57,12 @@ export function ProtocolInputs({ formValues, handleChange }: any) {
                 >
                   {showMqttPassword ? 
                     <IconContext.Provider value={{ style: { fontSize: '20px' } }}>
-                      <div className="text-gray-600">
+                      <div className="text-gray-500">
                           <HiEye />
                       </div>
                     </IconContext.Provider> : 
                     <IconContext.Provider value={{ style: { fontSize: '20px' } }}>
-                    <div className="text-gray-600">
+                    <div className="text-gray-500">
                         <HiEyeOff />
                     </div>
                   </IconContext.Provider>
@@ -77,57 +77,57 @@ export function ProtocolInputs({ formValues, handleChange }: any) {
     } 
     if(formValues.protocol === Protocols.HTTP) {
       return(
-        <div>
-      <h2 className="text-gray-700 mb-4 text-xl font-medium">Protocol Details</h2>
-      <div className="grid grid-cols-1 gap-8">
-        {/* HTTP HOST INPUT  */}
-        <TextField
-          name="http_host"
-          id="http-host-input"
-          value={formValues.http_host}
-          label="HTTP Host"
-          onChange={handleChange} 
-        />
-
-
-        {/* HTTP METHOD INPUT  */}
-        
-            <FormControl >
-              <InputLabel>HTTP Method</InputLabel>
-              <Select
-                name="http_method"
-                value={formValues.http_method ? formValues.http_method : HttpMethods.POST}
-                labelId="demo-simple-select-placeholder-label-label"
-                id="demo-simple-select-placeholder-label"
-                onChange={handleChange}
-              >
-                <MenuItem value={HttpMethods.POST}>POST</MenuItem>
-                <MenuItem value={HttpMethods.PUT}>PUT</MenuItem>
-                <MenuItem value={HttpMethods.PATCH}>PATCH</MenuItem>
-              </Select>
-            </FormControl>
-
-        
-        {/* HTTP AUTH HEADER INPUT  */}
-        {/* <Controller
-            control={control}
+      <div>
+        <h3 className="mb-4 col-span-2">Protocol Details</h3>
+        <div className="grid grid-cols-1 gap-8">
+          {/* HTTP HOST INPUT  */}
+          <TextField
             name="http_host"
-            render={({
-              field: { onChange, onBlur, value, name, ref },
-              fieldState: { invalid, isTouched, isDirty, error },
-              formState,
-            }) => (
-              <TextField
-                onBlur={onBlur}
-                onChange={onChange}
-                inputRef={ref}
-                value={device.http_host}
-                label="HTTP Auth Header" 
-              />
-            )}
-        /> */}
+            id="http-host-input"
+            value={formValues.http_host}
+            label="HTTP Host"
+            onChange={handleChange} 
+          />
+
+
+          {/* HTTP METHOD INPUT  */}
+          
+              <FormControl >
+                <InputLabel>HTTP Method</InputLabel>
+                <Select
+                  name="http_method"
+                  value={formValues.http_method ? formValues.http_method : HttpMethods.POST}
+                  labelId="demo-simple-select-placeholder-label-label"
+                  id="demo-simple-select-placeholder-label"
+                  onChange={handleChange}
+                >
+                  <MenuItem value={HttpMethods.POST}>POST</MenuItem>
+                  <MenuItem value={HttpMethods.PUT}>PUT</MenuItem>
+                  <MenuItem value={HttpMethods.PATCH}>PATCH</MenuItem>
+                </Select>
+              </FormControl>
+
+          
+          {/* HTTP AUTH HEADER INPUT  */}
+          {/* <Controller
+              control={control}
+              name="http_host"
+              render={({
+                field: { onChange, onBlur, value, name, ref },
+                fieldState: { invalid, isTouched, isDirty, error },
+                formState,
+              }) => (
+                <TextField
+                  onBlur={onBlur}
+                  onChange={onChange}
+                  inputRef={ref}
+                  value={device.http_host}
+                  label="HTTP Auth Header" 
+                />
+              )}
+          /> */}
+        </div>
       </div>
-    </div>
       )
       
     }

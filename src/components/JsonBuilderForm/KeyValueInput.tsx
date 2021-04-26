@@ -35,7 +35,7 @@ export const KeyValueInput = ({objKey, updateObjKey, deleteProperty, value, upda
 
             <button className="pb-2" onClick={deleteProperty(objKey)}>
                 <IconContext.Provider value={{ style: { fontSize: '20px' } }}>
-                    <div className="text-gray-600 hover:text-purple-700">
+                    <div className="hover:text-purple-700">
                         <HiOutlineTrash />
                     </div>
                 </IconContext.Provider>

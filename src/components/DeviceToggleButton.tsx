@@ -38,7 +38,7 @@ export const DeviceToggleButton = ({device, setDevice}: any) => {
                 color="primary"
                 className="w-20"
             />
-            <span className="text-gray-600 text-sm">running</span>
+            <span className="text-base font-normal">running</span>
         </div>
 
     );

@@ -34,7 +34,7 @@ export function DeleteDialog({open, setOpen, deleteDevice}: any) {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle className="text-gray-700" id="alert-dialog-title">{"Really want to delete the device?"}</DialogTitle>
+        <DialogTitle id="alert-dialog-title">{"Really want to delete the device?"}</DialogTitle>
         <DialogActions>
           <SecondaryButton onClick={handleClose} autoFocus>
             cancel

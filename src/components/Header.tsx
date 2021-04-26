@@ -11,7 +11,7 @@ export const Header = () => {
         <Searchbar />
         <div className="flex items-center">
           <img className="relative w-16 h-16 rounded-full shadow-md" src={user.picture} alt="Your avatar" />
-          <span className="relative ml-6 text-gray-700">
+          <span className="relative ml-6">
             {user.name}
           </span>
         </div>

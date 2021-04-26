@@ -12,7 +12,7 @@ export const SideNav = () => (
       <NavLink
         to="/"
         exact
-        className="text-lg mb-8 font-medium flex  md:w-48 items-center py-2 px-6 bg-white text-gray-600 rounded-full"
+        className="mb-8 font-medium flex  md:w-48 items-center py-2 px-6 bg-white rounded-full"
         activeStyle={{ color: '#5D40B8', background: '#f2f5f9' }}
       >
         <IconContext.Provider value={{ style: { fontSize: '25px' } }}>
@@ -24,7 +24,7 @@ export const SideNav = () => (
       </NavLink>
       <NavLink
         to="/alerts"
-        className="text-lg mb-8 font-medium flex  md:w-48 items-center py-2 px-6 bg-white text-gray-600 rounded-full"
+        className="mb-8 font-medium flex  md:w-48 items-center py-2 px-6 bg-white rounded-full"
         activeStyle={{ color: '#5D40B8', background: '#F9FBFD' }}
       >
         <IconContext.Provider value={{ style: { fontSize: '25px' } }}>
@@ -36,7 +36,7 @@ export const SideNav = () => (
       </NavLink>
       <NavLink
         to="/statistics"
-        className="text-lg mb-8 font-medium flex md:w-48 items-center py-2 px-6 bg-white text-gray-600 rounded-full"
+        className=" mb-8 font-medium flex md:w-48 items-center py-2 px-6 bg-white  rounded-full"
         activeStyle={{ color: '#5D40B8', background: '#f2f5f9' }}
       >
         <IconContext.Provider value={{ style: { fontSize: '25px' } }}>
@@ -49,7 +49,7 @@ export const SideNav = () => (
       </NavLink>
       <NavLink
         to="/profile"
-        className="text-lg mb-8 font-medium flex md:w-48 items-center py-2 px-6 bg-white text-gray-600 rounded-full"
+        className="mb-8 font-medium flex md:w-48 items-center py-2 px-6 bg-white  rounded-full"
         activeStyle={{ color: '#5D40B8', background: '#f2f5f9' }}
       >
         <IconContext.Provider value={{ style: { fontSize: '25px' } }}>

@@ -63,7 +63,7 @@ export const EditForm = ({device, setDevice}: any) => {
         <DeviceToggleButton className="w-24" device={device} setDevice={setDevice} />
         <div className="flex flex-row my-8">
           <div className="mr-12 w-3/6">
-          <h2 className="text-gray-700 mb-4 text-xl font-medium">Device Settings</h2>
+          <h3 className="mb-4 col-span-2">Device Settings</h3>
           <div className="grid grid-cols-2 gap-8">
 
             <TextField
@@ -98,7 +98,7 @@ export const EditForm = ({device, setDevice}: any) => {
                 startAdornment: (
                   <InputAdornment position="start">
                     <IconContext.Provider value={{ style: { fontSize: '20px' } }}>
-                        <div className="text-gray-600">
+                        <div className="text-gray-500">
                             <HiOutlineClock />
                         </div>
                     </IconContext.Provider>
@@ -116,7 +116,7 @@ export const EditForm = ({device, setDevice}: any) => {
       <div className="flex flex-row justify-end">
         <NavLink
           to="/"
-          className="bg-white mr-4 hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+          className="bg-white mr-4 hover:bg-gray-100 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
         >
           cancel
         </NavLink>

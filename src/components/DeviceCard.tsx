@@ -38,23 +38,23 @@ export function DeviceCard({deviceIn}: any) {
     
 
   return (
-    <div className="max-w-sm rounded-lg overflow-hidden shadow-sm bg-white p-4">
+    <div className="max-w-sm rounded-lg overflow-hidden shadow-sm hover:shadow-xl bg-white p-4">
         <DeleteDialog open={open} setOpen={setOpen} deleteDevice={removeDeviceFromDevices} />
 
         <div className="flex flex-col">
             <div className="flex flex-row justify-between">
-                <h3 className="text-gray-700 text-lg">{device.name}</h3>
+                <h3>{device.name}</h3>
                 <div className="flex flex-row">
                     <NavLink className="outline-none pr-2" to={editUrl}>
                         <IconContext.Provider value={{ style: { fontSize: '20px' } }}>
-                            <div className="text-gray-600 hover:text-purple-700">
+                            <div className="hover:text-purple-700">
                                 <HiOutlineCode />
                             </div>
                         </IconContext.Provider>
                     </NavLink>
                     <button className="outline-none pb-2" onClick={() => setOpen(true)}>
                         <IconContext.Provider value={{ style: { fontSize: '20px' } }}>
-                            <div className="text-gray-600 hover:text-purple-700">
+                            <div className="hover:text-purple-700">
                                 <HiOutlineTrash />
                             </div>
                         </IconContext.Provider>
@@ -63,7 +63,7 @@ export function DeviceCard({deviceIn}: any) {
             </div>
             {device.protocol === 'http' &&
                 <div className="flex flex-row justify-between py-4">
-                    <span className="text-gray-600 text-sm">{device.http_host}</span>
+                    <span>{device.http_host}</span>
                     <div className="flex justify-center items-center py-2 px-4 rounded-full text-white bg-primary shadow-md">
                         <div className="text-xs font-normal leading-none max-w-full flex-initial">{device.protocol}</div>
                     </div>
@@ -71,7 +71,7 @@ export function DeviceCard({deviceIn}: any) {
             }
             {device.protocol === 'mqtt' &&
                 <div className="flex flex-row justify-between py-4">
-                    <span className="text-gray-600 text-sm">{device.mqtt_topic}</span>
+                    <span>{device.mqtt_topic}</span>
                     <div className="flex justify-center items-center py-2 px-4 rounded-full text-white bg-indigo-500 shadow-md">
                         <div className="text-xs font-normal leading-none max-w-full flex-initial">{device.protocol}</div>
                     </div>
@@ -81,11 +81,11 @@ export function DeviceCard({deviceIn}: any) {
                 <DeviceToggleButton device={device} setDevice={setDevice} />
                 <div className="flex flex-row items-center pl-4">
                     <IconContext.Provider value={{ style: { fontSize: '15px' } }}>
-                        <div className="text-gray-600">
+                        <div>
                             <HiOutlineClock />
                         </div>
                     </IconContext.Provider>
-                    <span className="pl-1 text-gray-600 text-sm">{parseInterval(device.interval)}</span>
+                    <p className="pl-1">{parseInterval(device.interval)}</p>
                 </div>
             </div>
         </div>

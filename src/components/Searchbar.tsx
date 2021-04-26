@@ -5,9 +5,9 @@ import { IconContext } from 'react-icons';
 export const Searchbar = () => {
   return (
         <div className="bg-white flex items-center rounded-full shadow-sm">
-            <input className="rounded-l-full w-64 px-6 text-gray-700 leading-tight focus:outline-none" id="search" type="text" placeholder="Search" />
+            <input className="rounded-l-full w-64 px-6 leading-tight focus:outline-none" id="search" type="text" placeholder="Search" />
             <div>
-                <span className="text-gray-700 rounded-full p-2 focus:outline-none w-12 h-12 flex items-center justify-center">
+                <span className="rounded-full p-2 focus:outline-none w-12 h-12 flex items-center justify-center">
                     <IconContext.Provider value={{ style: { fontSize: '20px', color: '#adb9c9'} }}>
                     <div>
                         <HiOutlineSearch />

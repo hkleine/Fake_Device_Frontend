@@ -14,7 +14,7 @@ const SecondStep = ({ handleNext, handleBack, handleChange, values: { protocol, 
     <>
     {protocol === 'mqtt' ? (
       <>
-        <h2 className="text-gray-700 text-2xl font-medium pb-2">MQTT Destination</h2>
+        <h2 className="pb-2">MQTT Destination</h2>
         <Grid item xs={12}>
           <TextField
             fullWidth
@@ -68,7 +68,7 @@ const SecondStep = ({ handleNext, handleBack, handleChange, values: { protocol, 
         </>
         ) : (
           <>
-            <h2 className="text-gray-700 text-2xl font-medium pb-2">HTTP Destination</h2>
+            <h2 className="pb-2">HTTP Destination</h2>
             <Grid item xs={12}>
               <TextField
                 fullWidth

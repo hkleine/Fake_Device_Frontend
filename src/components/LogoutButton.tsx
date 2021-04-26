@@ -12,7 +12,7 @@ export const LogoutButton = () => {
           returnTo: window.location.origin,
         })
       }
-      className="text-lg mb-8 font-medium flex md:w-48 items-center py-2 px-6 bg-white bg-opacity-25 text-gray-600 rounded-full"
+      className="mb-8 font-medium flex md:w-48 items-center py-2 px-6 bg-white bg-opacity-25 rounded-full"
     >
         <IconContext.Provider value={{ style: { fontSize: '25px' } }}>
           <div>

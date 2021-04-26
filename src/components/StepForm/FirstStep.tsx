@@ -9,8 +9,8 @@ const FirstStep = ({ handleNext, handleChange, values: { protocol } }: any) => {
 
   return (
     <Fragment>
-          <h2 className="text-gray-700 text-2xl font-medium pb-2">Protocol</h2>
-          <span className="text-gray-700 text-sm pb-8">Which protocol should the virtual device comunicate on?</span>
+          <h2 className="pb-2">Protocol</h2>
+          <p className="pb-8">Which protocol should the virtual device comunicate on?</p>
           <div className="flex flex-row w-full justify-between">
             <label className="labl">
                 <input type="radio" aria-label="protocol" name="protocol" checked={protocol === Protocols.HTTP} value={Protocols.HTTP} onChange={handleChange}/>
